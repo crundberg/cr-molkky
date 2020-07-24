@@ -29,9 +29,13 @@ function Players() {
 				<button type="submit" className="btn btn-primary">Add player</button>
 			</form>
 
+
 			<ul class="list-group">
 				{players.map(player => {
-					return <li className="list-group-item" key={player.name}>{player.name} ({player.handicap})</li>
+					return <li className="list-group-item d-flex justify-content-between align-items-center" key={player.name}>
+						<span>{player.name} <button type="button" class="btn btn-link" onClick={e => handleDelete(player.name)}>Delete</button></span>
+						{player.handicap ? <span className="badge badge-primary badge-pill">Handicap</span> : ''}
+					</li>
 				})}
 			</ul>
 

@@ -10,7 +10,8 @@ export default function players(state = initialState, action) {
 				...state,
 				{
 					name: action.payload.name,
-					handicap: action.payload.handicap
+					handicap: action.payload.handicap,
+					points: []
 				}
 			]
 		case PLAYER.DELETE:
