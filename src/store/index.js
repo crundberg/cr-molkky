@@ -9,8 +9,6 @@ export const useGlobalStore = () => useContext(GlobalStore);
 
 export default function Provider({ children }) {
 	const [ state, dispatchBase ] = useReducer(mainReducer, initialState, () => {
-		//return initialState;
-
 		const localData = localStorage.getItem('data');
 		return localData ? JSON.parse(localData) : initialState;
 	});
