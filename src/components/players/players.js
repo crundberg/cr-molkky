@@ -30,7 +30,7 @@ function Players() {
 			</form>
 
 
-			<ul class="list-group">
+			<ul className="list-group">
 				{players.map(player => {
 					return <li className="list-group-item d-flex justify-content-between align-items-center" key={player.name}>
 						<span>{player.name} <button type="button" class="btn btn-link" onClick={e => handleDelete(player.name)}>Delete</button></span>

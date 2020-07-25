@@ -11,7 +11,10 @@ export default function players(state = initialState, action) {
 					name: action.payload.name,
 					handicap: action.payload.handicap,
 					points: [],
-					lastTurn: false
+					lastTurn: false,
+					currentPoints: 0,
+					misses: 0,
+					disqualified: false
 				}
 			]
 		case PLAYER.DELETE:
@@ -20,7 +23,20 @@ export default function players(state = initialState, action) {
 			const players = state.map(player => {
 				if (player.name === action.payload.name) {
 					player.points.push(action.payload.points);
+					player.currentPoints += action.payload.points;
 					player.lastTurn = true;
+
+					if (player.currentPoints > 50)
+						player.currentPoints = 25;
+
+					if (action.payload.points === 0)
+						player.misses++;
+					else
+						player.misses = 0;
+
+					if (player.misses >= 3 && !player.handicap)
+						player.disqualified = true;
+
 					return player;
 				}
 

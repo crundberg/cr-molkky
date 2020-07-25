@@ -20,6 +20,7 @@ function deletePlayer(name) {
 }
 
 function addPoint(name, points) {
+	console.log('addPoint')
 	return {
 		type: PLAYER.ADD_POINT,
 		payload: {

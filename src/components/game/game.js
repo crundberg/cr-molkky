@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { usePlayers } from 'hooks'
+import classNames from 'classnames'
 
 function Game() {
-	const [ points, setPoints ] = useState(0);
+	const [ points, setPoints ] = useState(-1);
 	const { players, handleAddPoint, handleNewGame } = usePlayers();
 
 	const playersTurn = players.reduce((turn, player) => {
 		const turnLength = turn.points.length;
 		const playerLength = player.points.length;
 
-		if (turnLength > playerLength) return player;
+		if (player.disqualified) return turn;
+		else if (turnLength > playerLength) return player;
 		else if (turnLength < playerLength) return turn;
 		else if (player.points[turnLength - 1] < turn.points[playerLength - 1]) return player;
 
@@ -18,14 +20,29 @@ function Game() {
 
 	const handlePointEvent = () => {
 		handleAddPoint(playersTurn.name, points);
-		setPoints(0);
+		setPoints(-1);
 	}
 
 	return (
 		<div className="container">
 			<p>{playersTurn.name}'s turn</p>
 
-			<p>{points} points</p>
+			<ul class="list-group">
+			{players.map(player => {
+					const className = classNames(
+						'list-group-item d-flex justify-content-between align-items-center',
+						{
+							active: player.name === playersTurn.name,
+							disabled: player.disqualified
+						}
+					);
+					return <li className={className} key={player.name}>
+						{player.name}
+						<span className="badge badge-danger badge-pill">{player.misses}</span>
+						<span className="badge badge-primary badge-pill">{player.currentPoints}</span>
+					</li>
+				})}
+			</ul>
 
 			<p>
 				{[...Array(13)].map((e, i) => {
@@ -34,7 +51,7 @@ function Game() {
 			</p>
 
 			<p>
-				<button type="button" className="btn btn-primary" onClick={e => handlePointEvent()}>
+				<button type="button" className="btn btn-primary" onClick={e => handlePointEvent()} disabled={points < 0}>
 					{ (points > 0) ? `OK (+${points})` : 'Missed' }
 				</button>
 			</p>
