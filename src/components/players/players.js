@@ -23,28 +23,36 @@ function Players() {
 
 	return (
 		<div className="container">
-			<h1>Players</h1>
+			<div class="card">
+				<div class="card-header">
+					Add players
 
-			<form onSubmit={onSubmit}>
-				<div className="input-group mb-3">
-					<input type="text" className="form-control" id="player" value={name} onChange={e => setName(e.target.value)} />
-					<div className="input-group-append" id="button-addon3">
-						<button className={handicapClass} type="button" onClick={e => setHandicap(!handicap)}>Handicap</button>
-						<button className="btn btn-outline-secondary" type="submit" >+</button>
+					<div className="float-right">
+						<Link to="game" className="btn btn-primary btn-sm">Start game</Link>
 					</div>
 				</div>
-			</form>
+				<div class="card-body">
+					<form onSubmit={onSubmit}>
+						<div className="input-group mb-3">
+							<input type="text" className="form-control" id="player" value={name} onChange={e => setName(e.target.value)} />
+						
+							<div className="input-group-append" id="button-addon3">
+								<button className={handicapClass} type="button" onClick={e => setHandicap(!handicap)}>Handicap</button>
+								<button className="btn btn-outline-secondary" type="submit" >+</button>
+							</div>
+						</div>
+					</form>
 
-			<ul className="list-group mb-3">
-				{players.map(player => {
-					return <li className="list-group-item d-flex justify-content-between align-items-center" key={player.name}>
-						<span>{player.name} <button type="button" class="btn btn-link" onClick={e => handleDelete(player.name)}>Delete</button></span>
-						{player.handicap ? <span className="badge badge-primary badge-pill">Handicap</span> : ''}
-					</li>
-				})}
-			</ul>
-
-			<p><Link to="game" className="btn btn-primary">Start game</Link></p>
+					<ul className="list-group mb-3">
+						{players.map(player => {
+							return <li className="list-group-item d-flex justify-content-between align-items-center" key={player.name}>
+								<span>{player.name} <button type="button" class="btn btn-link" onClick={e => handleDelete(player.name)}>Delete</button></span>
+								{player.handicap ? <span className="badge badge-primary badge-pill">Handicap</span> : ''}
+							</li>
+						})}
+					</ul>
+				</div>
+			</div>
 		</div>
 	);
 }

@@ -4,11 +4,18 @@ import { Link } from 'react-router-dom';
 function Start() {
 	return (
 		<div className="container">
-			<h1>CR Mölkky</h1>
+			<div className="card">
+				<div className="card-header">
+					CR Mölkky
 
-			<p>Lorem impsum...</p>
-
-			<Link to="players" className="btn btn-primary">Start game</Link>
+					<div className="float-right">
+						<Link to="players" className="btn btn-primary btn-sm mr-1">Start game</Link>
+					</div>
+				</div>
+				<div class="card-body">
+					<p class="card-text">Lorem impsum...</p>
+				</div>
+			</div>
 		</div>
 	);
 }

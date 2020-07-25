@@ -46,46 +46,55 @@ function Game() {
 
 	return (
 		<div className="container">
-			<h1>CR Mölkky</h1>
+			<div className="card">
+				<div className="card-header">
+					CR Mölkky
 
-			<ul className="list-group mr-3">
-			{players.sort(sort).map(player => {
-					const className = classNames(
-						'list-group-item d-flex justify-content-between align-items-center',
-						{
-							'active': player.name === playersTurn.name && !player.winner,
-							'disabled': player.disqualified,
-							'list-group-item-warning': player.winner
-						}
-					);
-					return <li className={className} key={player.name}>
-						{player.name}
-						<span className="badge badge-danger badge-pill">{player.misses}</span>
-						<span className="badge badge-primary badge-pill">{player.currentPoints}</span>
-					</li>
-				})}
-			</ul>
+					<div className="float-right">
+						<button type="button" className="btn btn-primary btn-sm mr-1" onClick={e => handleNewGame()}>New game</button>
+						<button type="button" className="btn btn-primary btn-sm" onClick={e => handleNewGame()}>Settings</button>
+					</div>
+				</div>
+				<div className="card-body">
+					<ul className="list-group mr-3">
+						{players.sort(sort).map(player => {
+							const className = classNames(
+								'list-group-item d-flex justify-content-between align-items-center',
+								{
+									'active': player.name === playersTurn.name && !player.winner,
+									'disabled': player.disqualified,
+									'list-group-item-warning': player.winner
+								}
+							);
 
-			<p>{playersTurn.name}'s turn</p>
+							return <li className={className} key={player.name}>
+								{player.name}
+								<span className="badge badge-danger badge-pill">{player.misses}</span>
+								<span className="badge badge-primary badge-pill">{player.currentPoints}</span>
+							</li>
+						})}
+					</ul>
 
-			<div class="btn-group mb-3" role="group">
-				{[...Array(13)].map((_e, i) => {
-					const className = classNames('btn btn-lg', {
-						'btn-primary': points === i,
-						'btn-outline-primary': points !== i,
-					})
+					<p>{playersTurn.name}'s turn</p>
 
-					return <button type="button" className={className} onClick={e => setPoints(i)} key={i}>{i}</button>
-				})}
+					<div class="btn-group mb-3" role="group">
+						{[...Array(13)].map((_e, i) => {
+							const className = classNames('btn', {
+								'btn-primary': points === i,
+								'btn-outline-primary': points !== i,
+							})
+
+							return <button type="button" className={className} onClick={e => setPoints(i)} key={i}>{i}</button>
+						})}
+					</div>
+
+					<p>
+						<button type="button" className="btn btn-primary" onClick={e => handlePointEvent()} disabled={points < 0}>
+							{ (points > 0) ? `OK (+${points})` : 'Missed' }
+						</button>
+					</p>
+				</div>
 			</div>
-
-			<p>
-				<button type="button" className="btn btn-primary" onClick={e => handlePointEvent()} disabled={points < 0}>
-					{ (points > 0) ? `OK (+${points})` : 'Missed' }
-				</button>
-			</p>
-
-			<p><button type="button" className="btn btn-primary" onClick={e => handleNewGame()}>New game</button></p>
 		</div>
 	);
 }
