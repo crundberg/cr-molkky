@@ -14,7 +14,8 @@ export default function players(state = initialState, action) {
 					lastTurn: false,
 					currentPoints: 0,
 					misses: 0,
-					disqualified: false
+					disqualified: false,
+					winner: false
 				}
 			]
 		case PLAYER.DELETE:
@@ -26,7 +27,9 @@ export default function players(state = initialState, action) {
 					player.currentPoints += action.payload.points;
 					player.lastTurn = true;
 
-					if (player.currentPoints > 50)
+					if (player.currentPoints === 50)
+						player.winner = true;
+					else if (player.currentPoints > 50)
 						player.currentPoints = 25;
 
 					if (action.payload.points === 0)

@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { Redirect } from "react-router-dom";
 import { usePlayers } from 'hooks'
 import classNames from 'classnames'
 
 function Game() {
 	const [ points, setPoints ] = useState(-1);
 	const { players, handleAddPoint, handleNewGame } = usePlayers();
+
+	if (players.length === 0) {
+		return <Redirect to="/" />
+	}
 
 	const playersTurn = players.reduce((turn, player) => {
 		const turnLength = turn.points.length;
@@ -23,17 +28,34 @@ function Game() {
 		setPoints(-1);
 	}
 
+	const sort = (a, b) => {
+		var comparison = 0;
+	
+		if (!a.disqualified && b.disqualified) {
+			comparison = -1;
+		} else if (a.disqualified && !b.disqualified) {
+			comparison = 1;
+		} else if (a.currentPoints > b.currentPoints) {
+			comparison = -1;
+		} else if (a.currentPoints < b.currentPoints) {
+			comparison = 1;
+		}
+	
+		return comparison;
+	}
+
 	return (
 		<div className="container">
-			<p>{playersTurn.name}'s turn</p>
+			<h1>CR Mölkky</h1>
 
-			<ul class="list-group">
-			{players.map(player => {
+			<ul className="list-group mr-3">
+			{players.sort(sort).map(player => {
 					const className = classNames(
 						'list-group-item d-flex justify-content-between align-items-center',
 						{
-							active: player.name === playersTurn.name,
-							disabled: player.disqualified
+							'active': player.name === playersTurn.name && !player.winner,
+							'disabled': player.disqualified,
+							'list-group-item-warning': player.winner
 						}
 					);
 					return <li className={className} key={player.name}>
@@ -44,11 +66,18 @@ function Game() {
 				})}
 			</ul>
 
-			<p>
-				{[...Array(13)].map((e, i) => {
-					return <button type="button" className={points === i ? 'btn btn-primary' : 'btn btn-outline-primary'} onClick={e => setPoints(i)} key={i}>{i}</button>
+			<p>{playersTurn.name}'s turn</p>
+
+			<div class="btn-group mb-3" role="group">
+				{[...Array(13)].map((_e, i) => {
+					const className = classNames('btn btn-lg', {
+						'btn-primary': points === i,
+						'btn-outline-primary': points !== i,
+					})
+
+					return <button type="button" className={className} onClick={e => setPoints(i)} key={i}>{i}</button>
 				})}
-			</p>
+			</div>
 
 			<p>
 				<button type="button" className="btn btn-primary" onClick={e => handlePointEvent()} disabled={points < 0}>
