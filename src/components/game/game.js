@@ -3,20 +3,23 @@ import { usePlayers } from 'hooks'
 
 function Game() {
 	const [ points, setPoints ] = useState(0);
-	const { players } = usePlayers();
+	const { players, handleAddPoint, handleNewGame } = usePlayers();
 
-	console.log(players);
+	const playersTurn = players.reduce((turn, player) => {
+		const turnLength = turn.points.length;
+		const playerLength = player.points.length;
 
-	var playersTurn = players.reduce(function (turn, player) {
-		if (!turn.points) return player;
-
-		const length = turn.points.lenght || 0;
-		
-		if (length > player.points.lenght) return player;
-		if (player.points[length - 1] < turn.points[length - 1]) return player;
+		if (turnLength > playerLength) return player;
+		else if (turnLength < playerLength) return turn;
+		else if (player.points[turnLength - 1] < turn.points[playerLength - 1]) return player;
 
 		return turn;
-	}, {});
+	}, players[0]);
+
+	const handlePointEvent = () => {
+		handleAddPoint(playersTurn.name, points);
+		setPoints(0);
+	}
 
 	return (
 		<div className="container">
@@ -29,6 +32,14 @@ function Game() {
 					return <button type="button" className={points === i ? 'btn btn-primary' : 'btn btn-outline-primary'} onClick={e => setPoints(i)} key={i}>{i}</button>
 				})}
 			</p>
+
+			<p>
+				<button type="button" className="btn btn-primary" onClick={e => handlePointEvent()}>
+					{ (points > 0) ? `OK (+${points})` : 'Missed' }
+				</button>
+			</p>
+
+			<p><button type="button" className="btn btn-primary" onClick={e => handleNewGame()}>New game</button></p>
 		</div>
 	);
 }

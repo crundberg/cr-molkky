@@ -15,13 +15,17 @@ const usePlayers = () => {
 	// List of Actions
 	const {
 		handleAdd,
-		handleDelete
+		handleDelete,
+		handleAddPoint,
+		handleNewGame
 	} = actions;
 
 	// Bind Actions
 	const playerActions = bindActions({
 		handleAdd,
-		handleDelete
+		handleDelete,
+		handleAddPoint,
+		handleNewGame
 	}, dispatch);
 
 	return { players, ...playerActions };
