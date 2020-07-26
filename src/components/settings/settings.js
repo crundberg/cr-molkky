@@ -7,8 +7,8 @@ function Settings() {
 				<div className="card-header">
 					CR Mölkky
 				</div>
-				<div class="card-body">
-					<p class="card-text">Lorem impsum...</p>
+				<div className="card-body">
+					<p className="card-text">Lorem impsum...</p>
 				</div>
 			</div>
 		</div>

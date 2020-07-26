@@ -50,7 +50,7 @@ function Game() {
 			'btn-outline-primary': points !== i,
 		})
 
-		return <button type="button" className={className} onClick={e => setPoints(i)} key={i}>{i}</button>
+		return <button type="button" className={className} onClick={() => setPoints(i)} key={i}>{i}</button>
 	}
 
 	return (
@@ -60,8 +60,8 @@ function Game() {
 					CR Mölkky
 
 					<div className="float-right">
-						<button type="button" className="btn btn-primary btn-sm mr-1" onClick={e => handleNewGame()}>New game</button>
-						<button type="button" className="btn btn-primary btn-sm" onClick={e => handleNewGame()}>Settings</button>
+						<button type="button" className="btn btn-primary btn-sm mr-1" onClick={() => handleNewGame()}>New game</button>
+						<button type="button" className="btn btn-primary btn-sm" onClick={() => handleNewGame()}>Settings</button>
 					</div>
 				</div>
 				<div className="card-body">
@@ -78,20 +78,20 @@ function Game() {
 
 							return <li className={className} key={player.name}>
 								{player.name}
-								<span className="badge badge-danger badge-pill">{player.handicap ? 'HC' : player.misses}</span>
+								<span className="badge badge-danger badge-pill">{player.handicap ? 'HCP' : player.misses}</span>
 								<span className="badge badge-primary badge-pill">{player.currentPoints}</span>
 							</li>
 						})}
 					</ul>
 
-					<h5 className="card-title">{playersTurn.name}'s turn</h5>
+					<h5 className="card-title">{playersTurn.name}&apos;s turn</h5>
 
-					<div class="mb-3">
+					<div className="mb-3">
 						{[...Array(13)].map(pointButton)}
 					</div>
 
 					<p>
-						<button type="button" className="btn btn-primary" onClick={e => handlePointEvent()} disabled={points < 0}>
+						<button type="button" className="btn btn-primary" onClick={() => handlePointEvent()} disabled={points < 0}>
 							{ (points > 0) ? `OK (+${points})` : 'Missed' }
 						</button>
 					</p>
