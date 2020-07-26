@@ -12,8 +12,8 @@ function Start() {
 						<Link to="players" className="btn btn-primary btn-sm mr-1">Start game</Link>
 					</div>
 				</div>
-				<div class="card-body">
-					<p class="card-text">Lorem impsum...</p>
+				<div className="card-body">
+					<p className="card-text">Lorem impsum...</p>
 				</div>
 			</div>
 		</div>
