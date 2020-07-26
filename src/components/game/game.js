@@ -44,6 +44,15 @@ function Game() {
 		return comparison;
 	}
 
+	const pointButton = (_e, i) => {
+		const className = classNames('btn btn-lg mr-1 mb-1', {
+			'btn-primary': points === i,
+			'btn-outline-primary': points !== i,
+		})
+
+		return <button type="button" className={className} onClick={e => setPoints(i)} key={i}>{i}</button>
+	}
+
 	return (
 		<div className="container">
 			<div className="card">
@@ -56,7 +65,7 @@ function Game() {
 					</div>
 				</div>
 				<div className="card-body">
-					<ul className="list-group mr-3">
+					<ul className="list-group mb-3">
 						{players.sort(sort).map(player => {
 							const className = classNames(
 								'list-group-item d-flex justify-content-between align-items-center',
@@ -69,23 +78,16 @@ function Game() {
 
 							return <li className={className} key={player.name}>
 								{player.name}
-								<span className="badge badge-danger badge-pill">{player.misses}</span>
+								<span className="badge badge-danger badge-pill">{player.handicap ? 'HC' : player.misses}</span>
 								<span className="badge badge-primary badge-pill">{player.currentPoints}</span>
 							</li>
 						})}
 					</ul>
 
-					<p>{playersTurn.name}'s turn</p>
+					<h5 className="card-title">{playersTurn.name}'s turn</h5>
 
-					<div class="btn-group mb-3" role="group">
-						{[...Array(13)].map((_e, i) => {
-							const className = classNames('btn', {
-								'btn-primary': points === i,
-								'btn-outline-primary': points !== i,
-							})
-
-							return <button type="button" className={className} onClick={e => setPoints(i)} key={i}>{i}</button>
-						})}
+					<div class="mb-3">
+						{[...Array(13)].map(pointButton)}
 					</div>
 
 					<p>

@@ -1,8 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 function Settings() {
 	return (
-		null
+		<div className="container">
+			<div className="card">
+				<div className="card-header">
+					CR Mölkky
+				</div>
+				<div class="card-body">
+					<p class="card-text">Lorem impsum...</p>
+				</div>
+			</div>
+		</div>
 	);
 }
 
