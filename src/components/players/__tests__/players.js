@@ -6,6 +6,8 @@ import Provider from 'store';
 import Players from '../players';
 
 const setup = () => {
+	localStorage.removeItem('data');
+
 	const history = createMemoryHistory();
 	const screen = render(
 		<Provider>
@@ -26,8 +28,8 @@ const setup = () => {
 		inputName,
 		listPlayers,
 		...screen,
-	}
-  }
+	};
+};
 
 it('renders without crashing', () => {
 	setup();
@@ -37,7 +39,7 @@ it('is not possible to add player without name', () => {
 	const { btnAdd, inputName } = setup();
 
 	expect(btnAdd).toBeDisabled();
-	fireEvent.change(inputName, { target: { value: 'CR' } });
+	fireEvent.change(inputName, { target: { value: 'Player 1' } });
 	expect(btnAdd).toBeEnabled();
 });
 
@@ -45,13 +47,13 @@ it('is not possible to add player is name alredy exists', () => {
 	const { btnAdd, inputName } = setup();
 
 	expect(btnAdd).toBeDisabled();
-	fireEvent.change(inputName, { target: { value: 'CR' } });
+	fireEvent.change(inputName, { target: { value: 'Player 1' } });
 	expect(btnAdd).toBeEnabled();
 	fireEvent.click(btnAdd);
 	expect(btnAdd).toBeDisabled();
-	fireEvent.change(inputName, { target: { value: 'C' } });
+	fireEvent.change(inputName, { target: { value: 'Player' } });
 	expect(btnAdd).toBeEnabled();
-	fireEvent.change(inputName, { target: { value: 'CR' } });
+	fireEvent.change(inputName, { target: { value: 'Player 1' } });
 	expect(btnAdd).toBeDisabled();
 });
 
@@ -68,17 +70,27 @@ it('is possible to toggle handicap', () => {
 it('is possible to add player', () => {
 	const { listPlayers, btnAdd, inputName } = setup();
 
-	fireEvent.change(inputName, { target: { value: 'CR' } });
+	fireEvent.change(inputName, { target: { value: 'Player 1' } });
 	fireEvent.click(btnAdd);
-	expect(listPlayers).toHaveTextContent('CR');
+	expect(listPlayers).toHaveTextContent('Player 1');
 });
 
 it('is possible to add player with handicap', () => {
 	const { listPlayers, btnAdd, btnHcp, inputName } = setup();
 
-	fireEvent.change(inputName, { target: { value: 'CR' } });
+	fireEvent.change(inputName, { target: { value: 'Player 1' } });
 	fireEvent.click(btnHcp);
 	fireEvent.click(btnAdd);
-	expect(listPlayers).toHaveTextContent('CR');
+	expect(listPlayers).toHaveTextContent('Player 1');
 	expect(listPlayers).toHaveTextContent('Handicap');
+});
+
+it('is possible to delete a player', () => {
+	const { btnAdd, inputName, ...screen } = setup();
+
+	fireEvent.change(inputName, { target: { value: 'Player 1' } });
+	fireEvent.click(btnAdd);
+
+	const btnDelete = screen.getByText('Delete');
+	fireEvent.click(btnDelete);
 });

@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useReducer, useCallback, useEffect } from 'react';
+import React, {
+	createContext,
+	useContext,
+	useReducer,
+	useCallback,
+	useEffect,
+} from 'react';
 import PropTypes from 'prop-types';
 import { asyncer } from './middlewares';
 import mainReducer, { initialState } from './reducers';
@@ -8,7 +14,7 @@ const GlobalStore = createContext({});
 export const useGlobalStore = () => useContext(GlobalStore);
 
 export default function Provider({ children }) {
-	const [ state, dispatchBase ] = useReducer(mainReducer, initialState, () => {
+	const [state, dispatchBase] = useReducer(mainReducer, initialState, () => {
 		const localData = localStorage.getItem('data');
 		return localData ? JSON.parse(localData) : initialState;
 	});
@@ -27,5 +33,5 @@ export default function Provider({ children }) {
 }
 
 Provider.propTypes = {
-	children: PropTypes.node.isRequired
-}
+	children: PropTypes.node.isRequired,
+};
