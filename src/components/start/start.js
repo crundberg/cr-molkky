@@ -7,9 +7,10 @@ function Start() {
 			<div className="card">
 				<div className="card-header">
 					CR Mölkky
-
 					<div className="float-right">
-						<Link to="players" className="btn btn-primary btn-sm mr-1">Start game</Link>
+						<Link to="players" className="btn btn-primary btn-sm mr-1">
+							Start game
+						</Link>
 					</div>
 				</div>
 				<div className="card-body">
