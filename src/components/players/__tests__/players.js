@@ -7,7 +7,7 @@ import Players from '../players';
 
 const setup = () => {
 	const history = createMemoryHistory();
-	const utils = render(
+	const screen = render(
 		<Provider>
 			<Router history={history}>
 				<Players />
@@ -15,15 +15,17 @@ const setup = () => {
 		</Provider>
 	);
 
-	const btnAdd = utils.getByText('+');
-	const btnHcp = utils.getByText('Handicap');
-	const inputName = utils.getByLabelText('player');
+	const btnAdd = screen.getByText('+');
+	const btnHcp = screen.getByText('Handicap');
+	const inputName = screen.getByLabelText('player');
+	const listPlayers = screen.getByRole('list');
 
 	return {
 		btnAdd,
 		btnHcp,
 		inputName,
-		...utils,
+		listPlayers,
+		...screen,
 	}
   }
 
@@ -63,12 +65,20 @@ it('is possible to toggle handicap', () => {
 	expect(btnHcp).toHaveClass('btn-outline-secondary');
 });
 
-it.skip('is possible to add player', () => {
-	const { btnAdd, inputName } = setup();
+it('is possible to add player', () => {
+	const { listPlayers, btnAdd, inputName } = setup();
 
 	fireEvent.change(inputName, { target: { value: 'CR' } });
 	fireEvent.click(btnAdd);
-	expect(inputName.value).toBe('');
+	expect(listPlayers).toHaveTextContent('CR');
 });
 
-it('is possible to add player with handicap', () => {});
+it('is possible to add player with handicap', () => {
+	const { listPlayers, btnAdd, btnHcp, inputName } = setup();
+
+	fireEvent.change(inputName, { target: { value: 'CR' } });
+	fireEvent.click(btnHcp);
+	fireEvent.click(btnAdd);
+	expect(listPlayers).toHaveTextContent('CR');
+	expect(listPlayers).toHaveTextContent('Handicap');
+});
