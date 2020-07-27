@@ -4,9 +4,8 @@ import { Start } from 'components/start';
 import { Players } from 'components/players';
 import { Game } from 'components/game';
 import { Settings } from 'components/settings';
-import './app.css';
-
 import Provider from 'store';
+import './app.css';
 
 function App() {
 	return (
