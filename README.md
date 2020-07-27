@@ -1,3 +1,12 @@
+# CR Mölkky
+
+A React app for keeping score in the game Mölkky also known as nummerkubb.
+
+[![Build Status](https://travis-ci.org/crundberg/cr-molkky.svg?branch=master)](https://travis-ci.org/crundberg/cr-molkky)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[Watch this demo](http://molkky.crundberg.se).
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
