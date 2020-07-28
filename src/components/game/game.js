@@ -18,8 +18,7 @@ function Game() {
 		if (player.disqualified) return turn;
 		else if (turnLength > playerLength) return player;
 		else if (turnLength < playerLength) return turn;
-		else if (player.points[turnLength - 1] < turn.points[playerLength - 1])
-			return player;
+		else if (player.currentPoints < turn.currentPoints) return player;
 
 		return turn;
 	}, players[0]);
