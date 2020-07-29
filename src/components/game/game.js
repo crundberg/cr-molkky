@@ -5,43 +5,21 @@ import classNames from 'classnames';
 
 function Game() {
 	const [points, setPoints] = useState(-1);
-	const { players, handleAddPoint, handleNewGame } = usePlayers();
+	const {
+		players,
+		playersTurn,
+		sortScore,
+		handleAddPoint,
+		handleNewGame,
+	} = usePlayers();
 
 	if (players.length === 0) {
 		return <Redirect to="/" />;
 	}
 
-	const playersTurn = players.reduce((turn, player) => {
-		const turnLength = turn.points.length;
-		const playerLength = player.points.length;
-
-		if (player.disqualified) return turn;
-		else if (turnLength > playerLength) return player;
-		else if (turnLength < playerLength) return turn;
-		else if (player.currentPoints < turn.currentPoints) return player;
-
-		return turn;
-	}, players[0]);
-
 	const handlePointEvent = () => {
 		handleAddPoint(playersTurn.name, points);
 		setPoints(-1);
-	};
-
-	const sort = (a, b) => {
-		var comparison = 0;
-
-		if (!a.disqualified && b.disqualified) {
-			comparison = -1;
-		} else if (a.disqualified && !b.disqualified) {
-			comparison = 1;
-		} else if (a.currentPoints > b.currentPoints) {
-			comparison = -1;
-		} else if (a.currentPoints < b.currentPoints) {
-			comparison = 1;
-		}
-
-		return comparison;
 	};
 
 	const pointButton = (_e, i) => {
@@ -83,7 +61,7 @@ function Game() {
 				</div>
 				<div className="card-body">
 					<ul className="list-group mb-3">
-						{players.sort(sort).map((player) => {
+						{players.sort(sortScore).map((player) => {
 							const className = classNames(
 								'list-group-item d-flex justify-content-between align-items-center',
 								{
