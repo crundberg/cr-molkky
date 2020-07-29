@@ -25,17 +25,20 @@ const usePlayers = () => {
 	);
 
 	// Functions
-	const playersTurn = players.reduce((turn, player) => {
-		const turnLength = turn.points.length;
-		const playerLength = player.points.length;
+	const playersTurn = players
+		.filter((player) => !player.winner && !player.disqualified)
+		.reduce((turn, player) => {
+			if (!turn.points) return player;
 
-		if (player.disqualified) return turn;
-		else if (turnLength > playerLength) return player;
-		else if (turnLength < playerLength) return turn;
-		else if (player.currentPoints < turn.currentPoints) return player;
+			const turnLength = turn.points.length;
+			const playerLength = player.points.length;
 
-		return turn;
-	}, players[0]);
+			if (turnLength > playerLength) return player;
+			else if (turnLength < playerLength) return turn;
+			else if (player.currentPoints < turn.currentPoints) return player;
+
+			return turn;
+		}, {});
 
 	const sortScore = (a, b) => {
 		var comparison = 0;

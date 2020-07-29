@@ -65,7 +65,7 @@ function Game() {
 							const className = classNames(
 								'list-group-item d-flex justify-content-between align-items-center',
 								{
-									active: player.name === playersTurn.name && !player.winner,
+									active: player.name === playersTurn.name,
 									disabled: player.disqualified,
 									'list-group-item-warning': player.winner,
 								}
@@ -85,21 +85,25 @@ function Game() {
 						})}
 					</ul>
 
-					<h5 className="card-title">{playersTurn.name}&apos;s turn</h5>
+					{playersTurn.name && (
+						<div className="points">
+							<h5 className="card-title">{playersTurn.name}&apos;s turn</h5>
 
-					<div className="mb-3">{[...Array(13)].map(pointButton)}</div>
+							<div className="mb-3">{[...Array(13)].map(pointButton)}</div>
 
-					<p>
-						<button
-							type="button"
-							className="btn btn-primary"
-							onClick={() => handlePointEvent()}
-							disabled={points < 0}
-							data-testid="btnAdd"
-						>
-							{points > 0 ? `OK (+${points})` : 'Missed'}
-						</button>
-					</p>
+							<p>
+								<button
+									type="button"
+									className="btn btn-primary"
+									onClick={() => handlePointEvent()}
+									disabled={points < 0}
+									data-testid="btnAdd"
+								>
+									{points > 0 ? `OK (+${points})` : 'Missed'}
+								</button>
+							</p>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>
