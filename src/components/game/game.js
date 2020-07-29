@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { usePlayers } from 'hooks';
 import classNames from 'classnames';
 
@@ -56,6 +56,7 @@ function Game() {
 				className={className}
 				onClick={() => setPoints(i)}
 				key={i}
+				data-testid={'btnPoint' + i}
 			>
 				{i}
 			</button>
@@ -75,13 +76,9 @@ function Game() {
 						>
 							New game
 						</button>
-						<button
-							type="button"
-							className="btn btn-primary btn-sm"
-							onClick={() => handleNewGame()}
-						>
+						<Link to="/settings" className="btn btn-primary btn-sm">
 							Settings
-						</button>
+						</Link>
 					</div>
 				</div>
 				<div className="card-body">
@@ -120,6 +117,7 @@ function Game() {
 							className="btn btn-primary"
 							onClick={() => handlePointEvent()}
 							disabled={points < 0}
+							data-testid="btnAdd"
 						>
 							{points > 0 ? `OK (+${points})` : 'Missed'}
 						</button>
