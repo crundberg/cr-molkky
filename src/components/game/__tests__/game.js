@@ -126,6 +126,10 @@ it('should update add points button with selected points', () => {
 	fireEvent.click(btnPoints);
 	expect(btnAdd).toBeEnabled();
 	expect(btnAdd).toHaveTextContent('Missed');
+
+	fireEvent.click(btnAdd);
+	expect(btnAdd).toBeDisabled();
+	expect(btnAdd).toHaveTextContent('Missed');
 });
 
 it('should redirect to start if no players are found', () => {
