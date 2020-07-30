@@ -73,6 +73,7 @@ function Game() {
 
 							return (
 								<li className={className} key={player.name}>
+									{player.finishedPos > 0 && player.finishedPos + '. '}
 									{player.name}
 									<span className="badge badge-danger badge-pill">
 										{player.handicap ? 'HCP' : player.misses}

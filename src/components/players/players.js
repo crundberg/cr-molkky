@@ -84,12 +84,10 @@ function Players() {
 											Delete
 										</button>
 									</span>
-									{player.handicap ? (
+									{player.handicap && (
 										<span className="badge badge-primary badge-pill">
 											Handicap
 										</span>
-									) : (
-										''
 									)}
 								</li>
 							);

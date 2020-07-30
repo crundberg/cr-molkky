@@ -16,19 +16,24 @@ export default function players(state = initialState, action) {
 					misses: 0,
 					disqualified: false,
 					winner: false,
+					finishedPos: 0,
 				},
 			];
 		case PLAYER.DELETE:
 			return state.filter((player) => player.name !== action.payload.name);
 		case PLAYER.ADD_POINT:
-			const players = state.map((player) => {
+			const players = state.map((player, _index, array) => {
 				if (player.name === action.payload.name) {
 					player.points.push(action.payload.points);
 					player.currentPoints += action.payload.points;
 					player.lastTurn = true;
 
-					if (player.currentPoints === 50) player.winner = true;
-					else if (player.currentPoints > 50) player.currentPoints = 25;
+					if (player.currentPoints === 50 && player.finishedPos === 0) {
+						player.winner = true;
+
+						player.finishedPos =
+							array.filter((x) => x.finishedPos > 0).length + 1;
+					} else if (player.currentPoints > 50) player.currentPoints = 25;
 
 					if (action.payload.points === 0) player.misses++;
 					else player.misses = 0;
