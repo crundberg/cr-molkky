@@ -3,6 +3,7 @@
 A React app for keeping score in the game Mölkky also known as nummerkubb.
 
 [![Build Status](https://travis-ci.org/crundberg/cr-molkky.svg?branch=master)](https://travis-ci.org/crundberg/cr-molkky)
+[![codecov](https://codecov.io/gh/crundberg/cr-molkky/branch/master/graph/badge.svg)](https://codecov.io/gh/crundberg/cr-molkky)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [Watch this demo](http://molkky.crundberg.se).
