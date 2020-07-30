@@ -94,3 +94,10 @@ it('is possible to delete a player', () => {
 	const btnDelete = screen.getByText('Delete');
 	fireEvent.click(btnDelete);
 });
+
+it('is possible to shuffle players', () => {
+	const { ...screen } = setup();
+
+	const btnShuffle = screen.getByText('Shuffle');
+	fireEvent.click(btnShuffle);
+});

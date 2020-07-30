@@ -11,7 +11,13 @@ const usePlayers = () => {
 	const { players } = state;
 
 	// List of Actions
-	const { handleAdd, handleDelete, handleAddPoint, handleNewGame } = actions;
+	const {
+		handleAdd,
+		handleDelete,
+		handleAddPoint,
+		handleNewGame,
+		shuffle,
+	} = actions;
 
 	// Bind Actions
 	const playerActions = bindActions(
@@ -20,6 +26,7 @@ const usePlayers = () => {
 			handleDelete,
 			handleAddPoint,
 			handleNewGame,
+			shuffle,
 		},
 		dispatch
 	);

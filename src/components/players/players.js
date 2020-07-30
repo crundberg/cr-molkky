@@ -6,7 +6,7 @@ import { usePlayers } from 'hooks';
 function Players() {
 	const [name, setName] = useState('');
 	const [handicap, setHandicap] = useState(false);
-	const { players, handleAdd, handleDelete } = usePlayers();
+	const { players, handleAdd, handleDelete, shuffle } = usePlayers();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -95,6 +95,14 @@ function Players() {
 							);
 						})}
 					</ul>
+
+					<button
+						type="button"
+						className="btn btn-primary"
+						onClick={() => shuffle()}
+					>
+						Shuffle
+					</button>
 				</div>
 			</div>
 		</div>

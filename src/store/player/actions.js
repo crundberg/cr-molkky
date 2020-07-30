@@ -5,8 +5,8 @@ function addPlayer(name, handicap) {
 		type: PLAYER.ADD,
 		payload: {
 			name,
-			handicap
-		}
+			handicap,
+		},
 	};
 }
 
@@ -14,8 +14,8 @@ function deletePlayer(name) {
 	return {
 		type: PLAYER.DELETE,
 		payload: {
-			name
-		}
+			name,
+		},
 	};
 }
 
@@ -24,16 +24,16 @@ function addPoint(name, points) {
 		type: PLAYER.ADD_POINT,
 		payload: {
 			name,
-			points
-		}
+			points,
+		},
 	};
 }
 
 function newGame() {
 	return {
 		type: PLAYER.NEW_GAME,
-		payload: {}
-	}
+		payload: {},
+	};
 }
 
 export function handleAdd(name, handicap) {
@@ -51,11 +51,19 @@ export function handleDelete(name) {
 export function handleAddPoint(name, point) {
 	return function (dispatch) {
 		dispatch(addPoint(name, point));
-	}
+	};
 }
 
 export function handleNewGame() {
-	return function(dispatch) {
+	return function (dispatch) {
 		dispatch(newGame());
-	}
+	};
+}
+
+export function shuffle() {
+	return function (dispatch) {
+		dispatch({
+			type: PLAYER.SHUFFLE,
+		});
+	};
 }
