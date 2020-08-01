@@ -16,7 +16,14 @@ export const useGlobalStore = () => useContext(GlobalStore);
 export default function Provider({ children }) {
 	const [state, dispatchBase] = useReducer(mainReducer, initialState, () => {
 		const localData = localStorage.getItem('data');
-		return localData ? JSON.parse(localData) : initialState;
+
+		if (!localData) return initialState;
+
+		const localJson = JSON.parse(localData);
+
+		return process.env.REACT_APP_VERSION === localJson.version
+			? localJson
+			: initialState;
 	});
 
 	useEffect(() => {
