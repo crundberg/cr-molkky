@@ -8,7 +8,7 @@ const usePlayers = () => {
 	const { state, dispatch } = useGlobalStore();
 
 	// List of Props
-	const { players } = state;
+	const { players } = state.players;
 
 	// List of Actions
 	const {

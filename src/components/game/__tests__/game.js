@@ -7,38 +7,40 @@ import Game from '../game';
 
 const data = () => {
 	return JSON.stringify({
-		players: [
-			{
-				name: 'Player 1',
-				handicap: false,
-				points: [],
-				lastTurn: false,
-				currentPoints: 0,
-				misses: 0,
-				disqualified: false,
-				winner: false,
-			},
-			{
-				name: 'Player 2',
-				handicap: false,
-				points: [],
-				lastTurn: false,
-				currentPoints: 0,
-				misses: 0,
-				disqualified: false,
-				winner: false,
-			},
-			{
-				name: 'Player 3',
-				handicap: true,
-				points: [],
-				lastTurn: false,
-				currentPoints: 0,
-				misses: 0,
-				disqualified: false,
-				winner: false,
-			},
-		],
+		players: {
+			players: [
+				{
+					name: 'Player 1',
+					handicap: false,
+					points: [],
+					lastTurn: false,
+					currentPoints: 0,
+					misses: 0,
+					disqualified: false,
+					winner: false,
+				},
+				{
+					name: 'Player 2',
+					handicap: false,
+					points: [],
+					lastTurn: false,
+					currentPoints: 0,
+					misses: 0,
+					disqualified: false,
+					winner: false,
+				},
+				{
+					name: 'Player 3',
+					handicap: true,
+					points: [],
+					lastTurn: false,
+					currentPoints: 0,
+					misses: 0,
+					disqualified: false,
+					winner: false,
+				},
+			],
+		},
 	});
 };
 

@@ -1,28 +1,28 @@
 import * as PLAYER from './types';
 
-export const initialState = [];
+export const initialState = {
+	rounds: 0,
+	throws: 0,
+	finished: 0,
+	players: [],
+};
 
 export default function players(state = initialState, action) {
 	switch (action.type) {
 		case PLAYER.ADD:
-			return [
+			return {
 				...state,
-				{
-					name: action.payload.name,
-					handicap: action.payload.handicap,
-					points: [],
-					lastTurn: false,
-					currentPoints: 0,
-					misses: 0,
-					disqualified: false,
-					winner: false,
-					finishedPos: 0,
-				},
-			];
+				players: [...state.players, action.payload],
+			};
 		case PLAYER.DELETE:
-			return state.filter((player) => player.name !== action.payload.name);
+			return {
+				...state,
+				players: state.players.filter(
+					(player) => player.name !== action.payload.name
+				),
+			};
 		case PLAYER.ADD_POINT:
-			const players = state.map((player, _index, array) => {
+			const players = state.players.map((player, _index, array) => {
 				if (player.name === action.payload.name) {
 					player.points.push(action.payload.points);
 					player.currentPoints += action.payload.points;
@@ -49,13 +49,21 @@ export default function players(state = initialState, action) {
 				return player;
 			});
 
-			return players;
+			return {
+				...state,
+				throws: state.throws++,
+				rounds: state.throws % state.players.length,
+				players: players,
+			};
 		case PLAYER.NEW_GAME:
 			return initialState;
 		case PLAYER.SHUFFLE:
-			return state.sort(() => {
-				return 0.5 - Math.random();
-			});
+			return {
+				...state,
+				players: state.players.sort(() => {
+					return 0.5 - Math.random();
+				}),
+			};
 		default:
 			return state;
 	}
