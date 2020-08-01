@@ -15,6 +15,7 @@ function Start() {
 				</div>
 				<div className="card-body">
 					<p className="card-text">Lorem impsum...</p>
+					<p className="card-text">v{process.env.REACT_APP_VERSION}</p>
 				</div>
 			</div>
 		</div>
