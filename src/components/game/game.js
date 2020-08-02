@@ -2,16 +2,12 @@ import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { usePlayers } from 'hooks';
 import classNames from 'classnames';
+import { GameScoreTable } from './';
+import './game.css';
 
 function Game() {
 	const [points, setPoints] = useState(-1);
-	const {
-		players,
-		playersTurn,
-		sortScore,
-		handleAddPoint,
-		handleNewGame,
-	} = usePlayers();
+	const { players, playersTurn, handleAddPoint, handleNewGame } = usePlayers();
 
 	if (players.length === 0) {
 		return <Redirect to="/" />;
@@ -59,34 +55,11 @@ function Game() {
 						</Link>
 					</div>
 				</div>
-				<div className="card-body">
-					<ul className="list-group mb-3">
-						{players.sort(sortScore).map((player) => {
-							const className = classNames(
-								'list-group-item d-flex justify-content-between align-items-center',
-								{
-									active: player.name === playersTurn.name,
-									disabled: player.disqualified,
-									'list-group-item-warning': player.winner,
-								}
-							);
 
-							return (
-								<li className={className} key={player.name}>
-									{player.finishedPos > 0 && player.finishedPos + '. '}
-									{player.name}
-									<span className="badge badge-danger badge-pill">
-										{player.handicap ? 'HCP' : player.misses}
-									</span>
-									<span className="badge badge-primary badge-pill">
-										{player.currentPoints}
-									</span>
-								</li>
-							);
-						})}
-					</ul>
+				<GameScoreTable />
 
-					{playersTurn.name && (
+				{playersTurn.name && (
+					<div className="card-body">
 						<div className="points">
 							<h5 className="card-title">{playersTurn.name}&apos;s turn</h5>
 
@@ -104,8 +77,8 @@ function Game() {
 								</button>
 							</p>
 						</div>
-					)}
-				</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

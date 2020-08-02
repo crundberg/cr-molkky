@@ -1,8 +1,6 @@
 import * as PLAYER from './types';
 
 export const initialState = {
-	rounds: 0,
-	throws: 0,
 	finished: 0,
 	players: [],
 };
@@ -51,8 +49,6 @@ export default function players(state = initialState, action) {
 
 			return {
 				...state,
-				throws: state.throws++,
-				rounds: state.throws % state.players.length,
 				players: players,
 			};
 		case PLAYER.NEW_GAME:

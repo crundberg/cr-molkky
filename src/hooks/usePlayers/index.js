@@ -32,23 +32,52 @@ const usePlayers = () => {
 	);
 
 	// Functions
-	const playersTurn = players
-		.filter((player) => !player.winner && !player.disqualified)
-		.reduce((turn, player) => {
-			if (!turn.points) return player;
+	const playersLeft = players.filter(
+		(player) => !player.winner && !player.disqualified
+	);
 
-			const turnLength = turn.points.length;
-			const playerLength = player.points.length;
+	const currentRound = players.reduce((rounds, player) => {
+		if (player.points.length > rounds) return player.points.length;
 
-			if (turnLength > playerLength) return player;
-			else if (turnLength < playerLength) return turn;
-			else if (player.currentPoints < turn.currentPoints) return player;
+		return rounds;
+	}, 1);
 
-			return turn;
-		}, {});
+	const newRound = playersLeft.every((player) => {
+		return player.points.length === currentRound;
+	});
+
+	const roundColumns = () => {
+		if (currentRound < 4) {
+			return [1, 2, 3, 4];
+		}
+
+		var columns = [];
+		var roundToShow = newRound ? currentRound + 1 : currentRound;
+
+		for (var round = roundToShow - 3; round <= roundToShow; round++) {
+			columns.push(round);
+		}
+
+		return columns;
+	};
+
+	const playersTurn = playersLeft.reduce((turn, player) => {
+		if (!turn.points) return player;
+
+		const turnLength = turn.points.length;
+		const playerLength = player.points.length;
+
+		if (turnLength > playerLength) return player;
+		else if (turnLength < playerLength) return turn;
+		else if (player.currentPoints < turn.currentPoints) return player;
+
+		return turn;
+	}, {});
 
 	const sortScore = (a, b) => {
 		var comparison = 0;
+
+		if (!newRound) return 0; // Sort after a complete round
 
 		if (!a.disqualified && b.disqualified) {
 			comparison = -1;
@@ -63,7 +92,14 @@ const usePlayers = () => {
 		return comparison;
 	};
 
-	return { players, playersTurn, sortScore, ...playerActions };
+	return {
+		players,
+		playersTurn,
+		sortScore,
+		currentRound,
+		roundColumns,
+		...playerActions,
+	};
 };
 
 export default usePlayers;
