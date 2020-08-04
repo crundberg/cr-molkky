@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
 import { usePlayers } from 'hooks';
 
 function Players() {
 	const [name, setName] = useState('');
 	const [handicap, setHandicap] = useState(false);
-	const { players, handleAdd, handleDelete, shuffle } = usePlayers();
+	const [startOrder, setStartOrder] = useState('shuffle');
+	const history = useHistory();
+	const { players, handleAdd, handleDelete, handleShuffle } = usePlayers();
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -14,6 +16,20 @@ function Players() {
 
 		setName('');
 		setHandicap(false);
+	};
+
+	const onStartGame = (e) => {
+		e.preventDefault();
+
+		switch (startOrder) {
+			case 'shuffle':
+				handleShuffle();
+				break;
+			case 'list':
+			default:
+		}
+
+		history.push('/game');
 	};
 
 	const handicapClass = classNames('btn', {
@@ -31,9 +47,13 @@ function Players() {
 				<div className="card-header">
 					Add players
 					<div className="float-right">
-						<Link to="game" className="btn btn-primary btn-sm">
+						<button
+							type="button"
+							className="btn btn-primary btn-sm"
+							onClick={onStartGame}
+						>
 							Start game
-						</Link>
+						</button>
 					</div>
 				</div>
 				<div className="card-body">
@@ -94,13 +114,31 @@ function Players() {
 						})}
 					</ul>
 
-					<button
-						type="button"
-						className="btn btn-primary"
-						onClick={() => shuffle()}
-					>
-						Shuffle
-					</button>
+					<h6 className="card-title">Start order</h6>
+					<div className="btn-group" role="group" aria-label="Start order">
+						<button
+							type="button"
+							className={
+								startOrder === 'shuffle'
+									? 'btn btn-primary'
+									: 'btn btn-outline-secondary'
+							}
+							onClick={() => setStartOrder('shuffle')}
+						>
+							Shuffle
+						</button>
+						<button
+							type="button"
+							className={
+								startOrder === 'list'
+									? 'btn btn-primary'
+									: 'btn btn-outline-secondary'
+							}
+							onClick={() => setStartOrder('list')}
+						>
+							List
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

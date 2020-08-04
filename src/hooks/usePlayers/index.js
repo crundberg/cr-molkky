@@ -16,7 +16,7 @@ const usePlayers = () => {
 		handleDelete,
 		handleAddPoint,
 		handleNewGame,
-		shuffle,
+		handleShuffle,
 	} = actions;
 
 	// Bind Actions
@@ -26,7 +26,7 @@ const usePlayers = () => {
 			handleDelete,
 			handleAddPoint,
 			handleNewGame,
-			shuffle,
+			handleShuffle,
 		},
 		dispatch
 	);

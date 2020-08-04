@@ -67,7 +67,7 @@ export function handleNewGame() {
 	};
 }
 
-export function shuffle() {
+export function handleShuffle() {
 	return function (dispatch) {
 		dispatch({
 			type: PLAYER.SHUFFLE,

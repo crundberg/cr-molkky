@@ -118,7 +118,7 @@ it('handle shuffle', () => {
 	expect(result.current.players).toHaveLength(5);
 
 	act(() => {
-		result.current.shuffle();
+		result.current.handleShuffle();
 	});
 
 	expect(result.current.players).toHaveLength(5);

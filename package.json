@@ -1,6 +1,6 @@
 {
   "name": "cr-molkky",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "http://molkky.crundberg.se/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
