@@ -1,9 +1,9 @@
 export default function bindActions(actions, dispatch) {
 	const bindAction = (action, dispatch) => {
-		return function() {
+		return function () {
 			return dispatch(action.apply(null, arguments));
 		};
-	}
+	};
 
 	// if it's a single action
 	if (typeof actions === 'function') {
@@ -14,7 +14,7 @@ export default function bindActions(actions, dispatch) {
 			`bindActions expected an object or a function, instead received ${
 				actions === null ? 'null' : typeof actions
 			}. `
-		)
+		);
 	}
 	const boundActions = {};
 	for (const key in actions) {

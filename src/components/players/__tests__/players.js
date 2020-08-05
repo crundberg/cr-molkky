@@ -95,9 +95,47 @@ it('is possible to delete a player', () => {
 	fireEvent.click(btnDelete);
 });
 
-it('is possible to shuffle players', () => {
-	const { ...screen } = setup();
+describe('start order', () => {
+	it('is possible to select shuffle players', () => {
+		const { ...screen } = setup();
 
-	const btnShuffle = screen.getByText('Shuffle');
-	fireEvent.click(btnShuffle);
+		const btnList = screen.getByText('List');
+		fireEvent.click(btnList);
+
+		const btnShuffle = screen.getByText('Shuffle');
+		expect(btnShuffle).toHaveClass('btn btn-outline-secondary');
+
+		fireEvent.click(btnShuffle);
+		expect(btnShuffle).toHaveClass('btn btn-primary');
+	});
+
+	it('is possible to select list', () => {
+		const { ...screen } = setup();
+
+		const btnList = screen.getByText('List');
+		expect(btnList).toHaveClass('btn btn-outline-secondary');
+
+		fireEvent.click(btnList);
+		expect(btnList).toHaveClass('btn btn-primary');
+	});
+});
+
+describe('start game', () => {
+	it('should start game with shuffle start order', () => {
+		const { ...screen } = setup();
+
+		const btnStartGame = screen.getByText('Start game');
+		const btnShuffle = screen.getByText('Shuffle');
+		fireEvent.click(btnShuffle);
+		fireEvent.click(btnStartGame);
+	});
+
+	it('should start game with list start order', () => {
+		const { ...screen } = setup();
+
+		const btnStartGame = screen.getByText('Start game');
+		const btnList = screen.getByText('List');
+		fireEvent.click(btnList);
+		fireEvent.click(btnStartGame);
+	});
 });
