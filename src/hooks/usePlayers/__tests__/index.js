@@ -124,6 +124,271 @@ it('handle shuffle', () => {
 	expect(result.current.players).toHaveLength(5);
 });
 
+it('should filter players who have finished or are disqualified', () => {
+	const { result } = setup();
+
+	// Add players
+	act(() => {
+		result.current.handleAdd('Player 1', false);
+		result.current.handleAdd('Player 2', true);
+		result.current.handleAdd('Player 3', false);
+		result.current.handleAdd('Player 4', false);
+	});
+
+	expect(result.current.playersLeft).toHaveLength(4);
+
+	act(() => {
+		result.current.handleAddPoint('Player 1', 50);
+	});
+
+	expect(result.current.playersLeft).toHaveLength(3);
+
+	act(() => {
+		result.current.handleAddPoint('Player 3', 0);
+		result.current.handleAddPoint('Player 3', 0);
+		result.current.handleAddPoint('Player 3', 0);
+	});
+
+	expect(result.current.playersLeft).toHaveLength(2);
+});
+
+it('should calculate current round', () => {
+	const { result } = setup();
+
+	// Add players
+	act(() => {
+		result.current.handleAdd('Player 1', false);
+		result.current.handleAdd('Player 2', true);
+		result.current.handleAdd('Player 3', false);
+		result.current.handleAdd('Player 4', false);
+	});
+
+	expect(result.current.currentRound).toBe(1);
+
+	// Test round 1
+	act(() => {
+		result.current.handleAddPoint('Player 1', 50);
+		result.current.handleAddPoint('Player 2', 10);
+		result.current.handleAddPoint('Player 3', 0);
+		result.current.handleAddPoint('Player 4', 5);
+	});
+
+	expect(result.current.currentRound).toBe(1);
+
+	// Test round 2
+	act(() => {
+		result.current.handleAddPoint('Player 2', 10);
+		result.current.handleAddPoint('Player 3', 0);
+		result.current.handleAddPoint('Player 4', 5);
+	});
+
+	expect(result.current.currentRound).toBe(2);
+
+	// Test round 3
+	act(() => {
+		result.current.handleAddPoint('Player 2', 10);
+		result.current.handleAddPoint('Player 3', 0);
+		result.current.handleAddPoint('Player 4', 5);
+	});
+
+	expect(result.current.currentRound).toBe(3);
+
+	// Test round 4
+	act(() => {
+		result.current.handleAddPoint('Player 2', 10);
+		result.current.handleAddPoint('Player 4', 5);
+	});
+
+	expect(result.current.currentRound).toBe(4);
+});
+
+it('should check if its a new round', () => {
+	const { result } = setup();
+
+	// Add players
+	act(() => {
+		result.current.handleAdd('Player 1', false);
+		result.current.handleAdd('Player 2', true);
+		result.current.handleAdd('Player 3', false);
+		result.current.handleAdd('Player 4', false);
+	});
+
+	expect(result.current.newRound).toBe(false);
+
+	act(() => {
+		result.current.handleAddPoint('Player 1', 50);
+		result.current.handleAddPoint('Player 2', 10);
+		result.current.handleAddPoint('Player 3', 0);
+	});
+
+	expect(result.current.newRound).toBe(false);
+
+	act(() => {
+		result.current.handleAddPoint('Player 4', 5);
+	});
+
+	expect(result.current.newRound).toBe(true);
+
+	act(() => {
+		result.current.handleAddPoint('Player 2', 10);
+	});
+
+	expect(result.current.newRound).toBe(false);
+
+	act(() => {
+		result.current.handleAddPoint('Player 3', 0);
+		result.current.handleAddPoint('Player 4', 5);
+	});
+
+	expect(result.current.newRound).toBe(true);
+});
+
+it('should calculate colums to show in scoreboard', () => {
+	const { result } = setup();
+	const { handleAdd, handleAddPoint } = result.current;
+
+	// Add players
+	act(() => {
+		handleAdd('Player 1', false);
+		handleAdd('Player 2', true);
+	});
+
+	expect(result.current.roundColumns()).toEqual(
+		expect.arrayContaining([1, 2, 3, 4])
+	);
+
+	act(() => {
+		handleAddPoint('Player 1', 1);
+		handleAddPoint('Player 2', 1);
+		handleAddPoint('Player 1', 1);
+		handleAddPoint('Player 2', 1);
+		handleAddPoint('Player 1', 1);
+		handleAddPoint('Player 2', 1);
+		handleAddPoint('Player 1', 1);
+		handleAddPoint('Player 2', 1);
+	});
+
+	expect(result.current.roundColumns()).toEqual([2, 3, 4, 5]);
+
+	act(() => {
+		handleAddPoint('Player 1', 1);
+	});
+
+	expect(result.current.roundColumns()).toEqual([2, 3, 4, 5]);
+
+	act(() => {
+		handleAddPoint('Player 2', 1);
+	});
+
+	expect(result.current.roundColumns()).toEqual([3, 4, 5, 6]);
+});
+
+describe('sort players', () => {
+	it('should only sort if its a new round', () => {
+		const { result } = setup();
+		const { handleAdd, handleAddPoint } = result.current;
+		var sort;
+
+		// Add players
+		act(() => {
+			handleAdd('Player 1', false);
+			handleAdd('Player 2', false);
+		});
+
+		sort = result.current.sortScore(
+			result.current.players[0],
+			result.current.players[1]
+		);
+		expect(sort).toBe(0);
+
+		// Round 1 starts
+		act(() => {
+			handleAddPoint('Player 1', 5);
+		});
+
+		sort = result.current.sortScore(
+			result.current.players[0],
+			result.current.players[1]
+		);
+		expect(sort).toBe(0);
+
+		// Round 1 finished
+		act(() => {
+			handleAddPoint('Player 2', 10);
+		});
+
+		sort = result.current.sortScore(
+			result.current.players[0],
+			result.current.players[1]
+		);
+		expect(sort).toBe(1);
+	});
+
+	it('should sort disqualified at the bottom', () => {
+		const { result } = setup();
+		const { sortScore, handleAdd, handleAddPoint } = result.current;
+		var sort;
+
+		// Add players
+		act(() => {
+			handleAdd('Player 1', false);
+			handleAdd('Player 2', false);
+			handleAddPoint('Player 1', 12);
+			handleAddPoint('Player 2', 0);
+			handleAddPoint('Player 1', 12);
+			handleAddPoint('Player 2', 0);
+			handleAddPoint('Player 1', 12);
+			handleAddPoint('Player 2', 0);
+		});
+
+		sort = sortScore(result.current.players[0], result.current.players[1]);
+		expect(sort).toBe(-1);
+
+		sort = sortScore(result.current.players[1], result.current.players[0]);
+		expect(sort).toBe(1);
+	});
+
+	it('should sort by points', () => {
+		const { result } = setup();
+		const { sortScore, handleAdd, handleAddPoint } = result.current;
+		var sort;
+
+		// Add players
+		act(() => {
+			handleAdd('Player 1', false);
+			handleAdd('Player 2', false);
+			handleAddPoint('Player 1', 12);
+			handleAddPoint('Player 2', 10);
+		});
+
+		sort = sortScore(result.current.players[0], result.current.players[1]);
+		expect(sort).toBe(-1);
+
+		sort = sortScore(result.current.players[1], result.current.players[0]);
+		expect(sort).toBe(1);
+	});
+
+	it('should return 0 if equal', () => {
+		const { result } = setup();
+		const { sortScore, handleAdd, handleAddPoint } = result.current;
+		var sort;
+
+		// Add players
+		act(() => {
+			handleAdd('Player 1', false);
+			handleAdd('Player 2', false);
+			handleAddPoint('Player 1', 12);
+			handleAddPoint('Player 2', 12);
+		});
+
+		sort = sortScore(result.current.players[0], result.current.players[1]);
+		expect(sort).toBe(0);
+
+		sort = sortScore(result.current.players[1], result.current.players[0]);
+		expect(sort).toBe(0);
+	});
+});
+
 it.skip('sorts players after points and then disqualified', () => {});
 
 it('shows whose turn it is', () => {

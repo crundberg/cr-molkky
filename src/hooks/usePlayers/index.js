@@ -94,9 +94,11 @@ const usePlayers = () => {
 
 	return {
 		players,
+		playersLeft,
 		playersTurn,
 		sortScore,
 		currentRound,
+		newRound,
 		roundColumns,
 		...playerActions,
 	};
