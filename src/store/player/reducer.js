@@ -56,9 +56,10 @@ export default function players(state = initialState, action) {
 		case PLAYER.SHUFFLE:
 			return {
 				...state,
-				players: state.players.sort(() => {
-					return 0.5 - Math.random();
-				}),
+				players: state.players
+					.map((a) => [Math.random(), a])
+					.sort((a, b) => a[0] - b[0])
+					.map((a) => a[1]),
 			};
 		default:
 			return state;
