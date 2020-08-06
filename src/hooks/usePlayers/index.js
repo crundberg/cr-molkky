@@ -33,7 +33,7 @@ const usePlayers = () => {
 
 	// Functions
 	const playersLeft = players.filter(
-		(player) => !player.winner && !player.disqualified
+		(player) => player.currentPoints !== 50 && !player.disqualified
 	);
 
 	const currentRound = players.reduce((rounds, player) => {

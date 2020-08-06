@@ -34,10 +34,8 @@ it('handle add player', () => {
 	expect(result.current.players[0].name).toBe('Player 1');
 	expect(result.current.players[0].handicap).toBe(false);
 	expect(result.current.players[0].points).toHaveLength(0);
-	expect(result.current.players[0].lastTurn).toBe(false);
 	expect(result.current.players[0].currentPoints).toBe(0);
 	expect(result.current.players[0].disqualified).toBe(false);
-	expect(result.current.players[0].winner).toBe(false);
 	expect(result.current.players[0].finishedPos).toBe(0);
 
 	expect(result.current.players[1].name).toBe('Player 2');

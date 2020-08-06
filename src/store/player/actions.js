@@ -7,11 +7,9 @@ function addPlayer(name, handicap) {
 			name: name,
 			handicap: handicap,
 			points: [],
-			lastTurn: false,
 			currentPoints: 0,
 			misses: 0,
 			disqualified: false,
-			winner: false,
 			finishedPos: 0,
 		},
 	};

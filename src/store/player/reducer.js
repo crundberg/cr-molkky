@@ -24,11 +24,8 @@ export default function players(state = initialState, action) {
 				if (player.name === action.payload.name) {
 					player.points.push(action.payload.points);
 					player.currentPoints += action.payload.points;
-					player.lastTurn = true;
 
 					if (player.currentPoints === 50 && player.finishedPos === 0) {
-						player.winner = true;
-
 						player.finishedPos =
 							array.filter((x) => x.finishedPos > 0).length + 1;
 					} else if (player.currentPoints > 50) player.currentPoints = 25;
@@ -41,8 +38,6 @@ export default function players(state = initialState, action) {
 
 					return player;
 				}
-
-				player.lastTurn = false;
 
 				return player;
 			});
