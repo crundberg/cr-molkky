@@ -34,13 +34,6 @@ function addPoint(name, points) {
 	};
 }
 
-function newGame() {
-	return {
-		type: PLAYER.NEW_GAME,
-		payload: {},
-	};
-}
-
 export function handleAdd(name, handicap) {
 	return function (dispatch) {
 		dispatch(addPlayer(name, handicap));
@@ -61,7 +54,17 @@ export function handleAddPoint(name, point) {
 
 export function handleNewGame() {
 	return function (dispatch) {
-		dispatch(newGame());
+		dispatch({
+			type: PLAYER.NEW_GAME,
+		});
+	};
+}
+
+export function handleRematch() {
+	return function (dispatch) {
+		dispatch({
+			type: PLAYER.REMATCH,
+		});
 	};
 }
 

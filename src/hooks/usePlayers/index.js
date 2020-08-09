@@ -16,6 +16,7 @@ const usePlayers = () => {
 		handleDelete,
 		handleAddPoint,
 		handleNewGame,
+		handleRematch,
 		handleShuffle,
 	} = actions;
 
@@ -26,6 +27,7 @@ const usePlayers = () => {
 			handleDelete,
 			handleAddPoint,
 			handleNewGame,
+			handleRematch,
 			handleShuffle,
 		},
 		dispatch
@@ -40,7 +42,7 @@ const usePlayers = () => {
 		if (player.points.length > rounds) return player.points.length;
 
 		return rounds;
-	}, 1);
+	}, 0);
 
 	const newRound = playersLeft.every((player) => {
 		return player.points.length === currentRound;

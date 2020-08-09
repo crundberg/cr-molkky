@@ -161,7 +161,7 @@ it('should calculate current round', () => {
 		result.current.handleAdd('Player 4', false);
 	});
 
-	expect(result.current.currentRound).toBe(1);
+	expect(result.current.currentRound).toBe(0);
 
 	// Test round 1
 	act(() => {
@@ -211,7 +211,7 @@ it('should check if its a new round', () => {
 		result.current.handleAdd('Player 4', false);
 	});
 
-	expect(result.current.newRound).toBe(false);
+	expect(result.current.newRound).toBe(true);
 
 	act(() => {
 		result.current.handleAddPoint('Player 1', 50);
@@ -386,8 +386,6 @@ describe('sort players', () => {
 		expect(sort).toBe(0);
 	});
 });
-
-it.skip('sorts players after points and then disqualified', () => {});
 
 it('shows whose turn it is', () => {
 	const { result } = setup();

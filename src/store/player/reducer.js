@@ -48,6 +48,19 @@ export default function players(state = initialState, action) {
 			};
 		case PLAYER.NEW_GAME:
 			return initialState;
+		case PLAYER.REMATCH:
+			return {
+				...state,
+				players: state.players.map((player) => {
+					player.points = [];
+					player.currentPoints = 0;
+					player.misses = 0;
+					player.disqualified = false;
+					player.finishedPos = 0;
+
+					return player;
+				}),
+			};
 		case PLAYER.SHUFFLE:
 			return {
 				...state,

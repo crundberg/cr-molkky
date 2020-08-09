@@ -1,15 +1,26 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { usePlayers } from 'hooks';
-import { GameScoreTable, GamePoints } from './';
+import { Dropdown } from 'components/bootstrap';
+import { GameScoreTable, GamePoints } from '.';
 import './game.css';
 
 function Game() {
-	const { players, handleNewGame } = usePlayers();
+	const { players, handleNewGame, handleRematch } = usePlayers();
 
 	if (players.length === 0) {
 		return <Redirect to="/" />;
 	}
+
+	const handleNewGameClick = (e) => {
+		window.confirm('Are you sure you want to start a new game?') &&
+			handleNewGame();
+	};
+
+	const handleRematchClick = (e) => {
+		window.confirm('Are you sure you want to restart the game?') &&
+			handleRematch();
+	};
 
 	return (
 		<div className="container">
@@ -17,16 +28,16 @@ function Game() {
 				<div className="card-header">
 					CR Mölkky
 					<div className="float-right">
-						<button
-							type="button"
-							className="btn btn-primary btn-sm mr-1"
-							onClick={() => handleNewGame()}
-						>
-							New game
-						</button>
-						<Link to="/settings" className="btn btn-primary btn-sm">
-							Settings
-						</Link>
+						<Dropdown text="Menu" buttonStyle="btn-sm">
+							<Dropdown.Item onClick={handleNewGameClick}>
+								New game
+							</Dropdown.Item>
+							<Dropdown.Item onClick={handleRematchClick}>
+								Restart game
+							</Dropdown.Item>
+							<Dropdown.Divider />
+							<Dropdown.Item href="/settings">Settings</Dropdown.Item>
+						</Dropdown>
 					</div>
 				</div>
 
