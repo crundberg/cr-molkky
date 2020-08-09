@@ -62,17 +62,45 @@ it('renders without crashing', () => {
 });
 
 it('redirects to start when new game button is pressed', () => {
+	const jsdomAlert = window.confirm;
+	window.confirm = () => {
+		return true;
+	};
+
 	const { ...screen } = setup(data());
 
 	const btnNewGame = screen.getByText('New game');
 	fireEvent.click(btnNewGame);
+
+	window.confirm = jsdomAlert;
+});
+
+it('clear all players points when restart game button is pressed', () => {
+	const jsdomAlert = window.confirm;
+	window.confirm = () => {
+		return true;
+	};
+
+	const { ...screen } = setup(data());
+
+	const btnRestart = screen.getByText('Restart game');
+	fireEvent.click(btnRestart);
+
+	window.confirm = jsdomAlert;
 });
 
 it('redirects to settings when settings button is pressed', () => {
+	const jsdomAlert = window.confirm;
+	window.confirm = () => {
+		return true;
+	};
+
 	const { ...screen } = setup(data());
 
 	const btnSettings = screen.getByText('Settings');
 	fireEvent.click(btnSettings);
+
+	window.confirm = jsdomAlert;
 });
 
 it.skip('sorts players after points and then disqualified', () => {

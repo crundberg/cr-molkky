@@ -3,7 +3,7 @@ import { usePlayers } from 'hooks';
 import classNames from 'classnames';
 import './game.css';
 
-function Game() {
+function GamePoints() {
 	const [points, setPoints] = useState(-1);
 	const { playersTurn, handleAddPoint } = usePlayers();
 
@@ -54,4 +54,4 @@ function Game() {
 	) : null;
 }
 
-export default Game;
+export default GamePoints;

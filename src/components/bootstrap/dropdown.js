@@ -35,7 +35,9 @@ function Dropdown({ children, text, buttonStyle }) {
 			<button className={buttonClassName} onClick={handleToggle} type="button">
 				{text}
 			</button>
-			<div className={menuClassName}>{children}</div>
+			<div className={menuClassName} data-testid="dropdown-menu">
+				{children}
+			</div>
 		</div>
 	);
 }
