@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import DropdownItem from './dropdownItem';
 import DropdownDivider from './dropdownDivider';
 
-function Dropdown({ children, text, buttonStyle }) {
+function Dropdown({ children, text, buttonStyle, menuStyle }) {
 	const [isVisible, setVisible] = useState(false);
 	const node = useRef();
 
@@ -26,7 +26,7 @@ function Dropdown({ children, text, buttonStyle }) {
 		buttonStyle
 	);
 
-	const menuClassName = classNames('dropdown-menu', {
+	const menuClassName = classNames('dropdown-menu', menuStyle, {
 		show: isVisible,
 	});
 
@@ -46,6 +46,7 @@ Dropdown.propTypes = {
 	text: PropTypes.string,
 	children: PropTypes.any,
 	buttonStyle: PropTypes.string,
+	menuStyle: PropTypes.string,
 };
 
 Dropdown.Item = DropdownItem;

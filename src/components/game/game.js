@@ -28,7 +28,11 @@ function Game() {
 				<div className="card-header">
 					CR Mölkky
 					<div className="float-right">
-						<Dropdown text="Menu" buttonStyle="btn-sm">
+						<Dropdown
+							text="Menu"
+							buttonStyle="btn-sm"
+							menuStyle="dropdown-menu-right"
+						>
 							<Dropdown.Item onClick={handleNewGameClick}>
 								New game
 							</Dropdown.Item>

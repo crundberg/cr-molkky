@@ -14,12 +14,19 @@ it('renders with text props', () => {
 
 it('renders with style props', () => {
 	const screen = render(
-		<Dropdown text="Dropdown button" buttonStyle="extra-style" />
+		<Dropdown
+			text="Dropdown button"
+			buttonStyle="extra-style"
+			menuStyle="menu-extra-style"
+		/>
 	);
 
 	const button = screen.getByText('Dropdown button');
 	expect(button).toHaveTextContent('Dropdown button');
 	expect(button).toHaveClass('extra-style');
+
+	const menu = screen.getByTestId('dropdown-menu');
+	expect(menu).toHaveClass('menu-extra-style');
 });
 
 it('should toggle dropdown menu on button click', () => {
