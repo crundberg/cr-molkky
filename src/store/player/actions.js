@@ -1,6 +1,6 @@
 import * as PLAYER from './types';
 
-function addPlayer(name, handicap) {
+export function handleAdd(name, handicap) {
 	return {
 		type: PLAYER.ADD,
 		payload: {
@@ -15,7 +15,7 @@ function addPlayer(name, handicap) {
 	};
 }
 
-function deletePlayer(name) {
+export function handleDelete(name) {
 	return {
 		type: PLAYER.DELETE,
 		payload: {
@@ -24,7 +24,7 @@ function deletePlayer(name) {
 	};
 }
 
-function addPoint(name, points) {
+export function handleAddPoint(name, points) {
 	return {
 		type: PLAYER.ADD_POINT,
 		payload: {
@@ -34,44 +34,20 @@ function addPoint(name, points) {
 	};
 }
 
-export function handleAdd(name, handicap) {
-	return function (dispatch) {
-		dispatch(addPlayer(name, handicap));
-	};
-}
-
-export function handleDelete(name) {
-	return function (dispatch) {
-		dispatch(deletePlayer(name));
-	};
-}
-
-export function handleAddPoint(name, point) {
-	return function (dispatch) {
-		dispatch(addPoint(name, point));
-	};
-}
-
 export function handleNewGame() {
-	return function (dispatch) {
-		dispatch({
-			type: PLAYER.NEW_GAME,
-		});
+	return {
+		type: PLAYER.NEW_GAME,
 	};
 }
 
 export function handleRematch() {
-	return function (dispatch) {
-		dispatch({
-			type: PLAYER.REMATCH,
-		});
+	return {
+		type: PLAYER.REMATCH,
 	};
 }
 
 export function handleShuffle() {
-	return function (dispatch) {
-		dispatch({
-			type: PLAYER.SHUFFLE,
-		});
+	return {
+		type: PLAYER.SHUFFLE,
 	};
 }

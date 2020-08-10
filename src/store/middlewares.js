@@ -1,6 +1,3 @@
-export const asyncer = (dispatch, state) => (action) =>
-	typeof action === 'function' ? action(dispatch, state) : dispatch(action);
-
 export const logger = (action, prevState, currentState) => {
 	if (process.env.NODE_ENV !== 'development') return;
 

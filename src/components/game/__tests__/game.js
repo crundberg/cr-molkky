@@ -61,6 +61,39 @@ it('renders without crashing', () => {
 	setup(data());
 });
 
+it('use initial state if a new version is released', () => {
+	const data = JSON.stringify({
+		players: {
+			players: [
+				{
+					name: 'Player 1',
+					handicap: false,
+					points: [],
+					currentPoints: 0,
+					misses: 0,
+					disqualified: false,
+				},
+				{
+					name: 'Player 2',
+					handicap: false,
+					points: [],
+					currentPoints: 0,
+					misses: 0,
+					disqualified: false,
+				},
+			],
+		},
+		version: 'oldVersion',
+	});
+
+	const version = process.env.REACT_APP_VERSION;
+	process.env.REACT_APP_VERSION = 'newVersion';
+
+	const { ...screen } = setup(data);
+
+	process.env.REACT_APP_VERSION = version;
+});
+
 it('redirects to start when new game button is pressed', () => {
 	const jsdomAlert = window.confirm;
 	window.confirm = () => {
