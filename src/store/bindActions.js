@@ -17,11 +17,11 @@ export default function bindActions(actions, dispatch) {
 		);
 	}
 	const boundActions = {};
-	for (const key in actions) {
-		const action = actions[key];
+	Object.entries(actions).forEach(([key, action]) => {
 		if (typeof action === 'function') {
 			boundActions[key] = bindAction(action, dispatch);
 		}
-	}
+	});
+
 	return boundActions;
 }
