@@ -3,10 +3,10 @@ import { render } from '@testing-library/react';
 import Provider from 'store';
 import GameScoreTableRow from '../gameScoreTableRow';
 
-const data = (players) => {
+const initialData = (players) => {
 	return JSON.stringify({
 		players: {
-			players: players,
+			players,
 		},
 		version: process.env.REACT_APP_VERSION,
 	});
@@ -43,7 +43,7 @@ it('renders without crashing', () => {
 		},
 	];
 
-	setup(data(players), players[0]);
+	setup(initialData(players), players[0]);
 });
 
 it('should indicate players turn', () => {
@@ -58,7 +58,7 @@ it('should indicate players turn', () => {
 		},
 	];
 
-	const { ...screen } = setup(data(players), players[0]);
+	const { ...screen } = setup(initialData(players), players[0]);
 
 	const tr = screen.getByRole('row');
 	expect(tr).toHaveClass('table-primary');
@@ -84,7 +84,7 @@ it('should not indicate another players turn', () => {
 		},
 	];
 
-	const { ...screen } = setup(data(players), players[0]);
+	const { ...screen } = setup(initialData(players), players[0]);
 
 	const tr = screen.getByRole('row');
 	expect(tr).not.toHaveClass('table-primary');
@@ -102,7 +102,7 @@ it('should indicate player is disqualified', () => {
 		},
 	];
 
-	const { ...screen } = setup(data(players), players[0]);
+	const { ...screen } = setup(initialData(players), players[0]);
 
 	const tr = screen.getByRole('row');
 	expect(tr).toHaveClass('table-disqualified');
@@ -120,7 +120,7 @@ it('should not indicate player is not disqualified', () => {
 		},
 	];
 
-	const { ...screen } = setup(data(players), players[0]);
+	const { ...screen } = setup(initialData(players), players[0]);
 
 	const tr = screen.getByRole('row');
 	expect(tr).not.toHaveClass('table-disqualified');
@@ -138,7 +138,7 @@ it('should indicate player who finished', () => {
 		},
 	];
 
-	const { ...screen } = setup(data(players), players[0]);
+	const { ...screen } = setup(initialData(players), players[0]);
 
 	const tr = screen.getByRole('row');
 	expect(tr).toHaveClass('table-warning');
@@ -156,7 +156,7 @@ it('should not indicate player is not disqualified', () => {
 		},
 	];
 
-	const { ...screen } = setup(data(players), players[0]);
+	const { ...screen } = setup(initialData(players), players[0]);
 
 	const tr = screen.getByRole('row');
 	expect(tr).not.toHaveClass('table-warning');
@@ -174,7 +174,7 @@ it('should indicate if player has handicap', () => {
 		},
 	];
 
-	const { ...screen } = setup(data(players), players[0]);
+	const { ...screen } = setup(initialData(players), players[0]);
 
 	const badge = screen.getByText('HCP');
 	expect(badge).toHaveClass('badge', 'badge-warning');

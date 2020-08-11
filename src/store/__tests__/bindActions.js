@@ -4,7 +4,7 @@ it('should bind one function', () => {
 	const dispatch = () => {};
 	const handleAdd = () => {};
 
-	const playerActions = bindActions(handleAdd, dispatch);
+	bindActions(handleAdd, dispatch);
 });
 
 it('should bind multiple functions', () => {
@@ -13,7 +13,7 @@ it('should bind multiple functions', () => {
 	const handleDelete = () => {};
 	const myString = '';
 
-	const playerActions = bindActions(
+	bindActions(
 		{
 			handleAdd,
 			handleDelete,

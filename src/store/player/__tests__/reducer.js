@@ -10,7 +10,7 @@ it('should return the initial state', () => {
 
 it('should handle add player', () => {
 	// Add player 1
-	var players = Reducer(undefined, {
+	let players = Reducer(undefined, {
 		type: PLAYER.ADD,
 		payload: {
 			name: 'Player 1',
@@ -443,7 +443,7 @@ it('should handle rematch', () => {
 
 	expect(players.players).toHaveLength(3);
 
-	for (var n = 0; n < 3; n++) {
+	for (let n = 0; n < 3; n += 1) {
 		expect(players.players[n].points).toHaveLength(0);
 		expect(players.players[n].currentPoints).toBe(0);
 		expect(players.players[n].misses).toBe(0);

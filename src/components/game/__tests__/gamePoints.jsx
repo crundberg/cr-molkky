@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import Provider from 'store';
 import GamePoints from '../gamePoints';
 
-const data = () => {
+const initialData = () => {
 	return JSON.stringify({
 		players: {
 			players: [
@@ -53,7 +53,7 @@ const setup = (data) => {
 };
 
 it('renders without crashing', () => {
-	setup(data());
+	setup(initialData());
 });
 
 it('do not render if there is no players left', () => {

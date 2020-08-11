@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Start() {
+	const version = `v${process.env.REACT_APP_VERSION}`;
+
 	return (
 		<div className="container">
 			<div className="card">
@@ -15,7 +17,7 @@ function Start() {
 				</div>
 				<div className="card-body">
 					<p className="card-text">Lorem impsum...</p>
-					<p className="card-text">v{process.env.REACT_APP_VERSION}</p>
+					<p className="card-text">{version}</p>
 				</div>
 			</div>
 		</div>

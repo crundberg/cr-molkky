@@ -18,23 +18,30 @@ function GamePoints() {
 			'btn-outline-primary': points !== i,
 		});
 
+		const testId = `btnPoint${i}`;
+
 		return (
 			<button
 				type="button"
 				className={className}
 				onClick={() => setPoints(i)}
 				key={i}
-				data-testid={'btnPoint' + i}
+				data-testid={testId}
 			>
 				{i}
 			</button>
 		);
 	};
 
+	const pointButtonText = points > 0 ? `OK (+${points})` : 'Missed';
+
 	return playersTurn.name ? (
 		<div className="card-body">
 			<div className="points">
-				<h5 className="card-title">{playersTurn.name}&apos;s turn</h5>
+				<h5 className="card-title">
+					{playersTurn.name}
+					&apos;s turn
+				</h5>
 
 				<div className="mb-3">{[...Array(13)].map(pointButton)}</div>
 
@@ -46,7 +53,7 @@ function GamePoints() {
 						disabled={points < 0}
 						data-testid="btnAdd"
 					>
-						{points > 0 ? `OK (+${points})` : 'Missed'}
+						{pointButtonText}
 					</button>
 				</p>
 			</div>

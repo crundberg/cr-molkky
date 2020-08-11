@@ -1,7 +1,7 @@
 export default function bindActions(actions, dispatch) {
-	const bindAction = (action, dispatch) => {
-		return function () {
-			return dispatch(action.apply(null, arguments));
+	const bindAction = (action, bindDispatch) => {
+		return (...args) => {
+			return bindDispatch(action(...args));
 		};
 	};
 

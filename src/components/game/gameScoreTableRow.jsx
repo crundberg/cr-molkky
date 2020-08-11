@@ -18,7 +18,8 @@ function GameScoreTableRow({ player }) {
 	return (
 		<tr key={name} className={rowClass}>
 			<th scope="row">
-				{name} {handicap && <span className="badge badge-warning">HCP</span>}
+				{name}
+				{handicap && <span className="badge badge-warning">HCP</span>}
 			</th>
 			{roundColumns().map((round) => {
 				const roundPoints = points[round - 1];
@@ -45,8 +46,8 @@ GameScoreTableRow.propTypes = {
 		currentPoints: PropTypes.number,
 		disqualified: PropTypes.bool,
 		handicap: PropTypes.bool,
-		points: PropTypes.array,
-	}),
+		points: PropTypes.arrayOf(PropTypes.number),
+	}).isRequired,
 };
 
 export default GameScoreTableRow;

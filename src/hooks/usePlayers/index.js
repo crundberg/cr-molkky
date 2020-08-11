@@ -53,10 +53,10 @@ const usePlayers = () => {
 			return [1, 2, 3, 4];
 		}
 
-		var columns = [];
-		var roundToShow = newRound ? currentRound + 1 : currentRound;
+		const columns = [];
+		const roundToShow = newRound ? currentRound + 1 : currentRound;
 
-		for (var round = roundToShow - 3; round <= roundToShow; round++) {
+		for (let round = roundToShow - 3; round <= roundToShow; round += 1) {
 			columns.push(round);
 		}
 
@@ -70,14 +70,14 @@ const usePlayers = () => {
 		const playerLength = player.points.length;
 
 		if (turnLength > playerLength) return player;
-		else if (turnLength < playerLength) return turn;
-		else if (player.currentPoints < turn.currentPoints) return player;
+		if (turnLength < playerLength) return turn;
+		if (player.currentPoints < turn.currentPoints) return player;
 
 		return turn;
 	}, {});
 
 	const sortScore = (a, b) => {
-		var comparison = 0;
+		let comparison = 0;
 
 		if (!newRound) return 0; // Sort after a complete round
 

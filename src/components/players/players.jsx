@@ -95,7 +95,7 @@ function Players() {
 									key={player.name}
 								>
 									<span>
-										{player.name}{' '}
+										{player.name}
 										<button
 											type="button"
 											className="btn btn-link"

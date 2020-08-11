@@ -1,3 +1,6 @@
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable no-console */
+
 export const logger = (action, prevState, currentState) => {
 	if (process.env.NODE_ENV !== 'development') return;
 

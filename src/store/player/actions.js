@@ -4,8 +4,8 @@ export function handleAdd(name, handicap) {
 	return {
 		type: PLAYER.ADD,
 		payload: {
-			name: name,
-			handicap: handicap,
+			name,
+			handicap,
 			points: [],
 			currentPoints: 0,
 			misses: 0,

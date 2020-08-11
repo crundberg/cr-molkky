@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import Provider from 'store';
-import usePlayers from '../';
+import usePlayers from '..';
 
 const setup = () => {
 	localStorage.removeItem('data');
@@ -285,7 +285,7 @@ describe('sort players', () => {
 	it('should only sort if its a new round', () => {
 		const { result } = setup();
 		const { handleAdd, handleAddPoint } = result.current;
-		var sort;
+		let sort;
 
 		// Add players
 		act(() => {
@@ -325,7 +325,7 @@ describe('sort players', () => {
 	it('should sort disqualified at the bottom', () => {
 		const { result } = setup();
 		const { sortScore, handleAdd, handleAddPoint } = result.current;
-		var sort;
+		let sort;
 
 		// Add players
 		act(() => {
@@ -349,7 +349,7 @@ describe('sort players', () => {
 	it('should sort by points', () => {
 		const { result } = setup();
 		const { sortScore, handleAdd, handleAddPoint } = result.current;
-		var sort;
+		let sort;
 
 		// Add players
 		act(() => {
@@ -369,7 +369,7 @@ describe('sort players', () => {
 	it('should return 0 if equal', () => {
 		const { result } = setup();
 		const { sortScore, handleAdd, handleAddPoint } = result.current;
-		var sort;
+		let sort;
 
 		// Add players
 		act(() => {

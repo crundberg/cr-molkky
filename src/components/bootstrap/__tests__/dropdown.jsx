@@ -4,7 +4,9 @@ import Dropdown from '../dropdown';
 
 it('renders with text props', () => {
 	const screen = render(
-		<Dropdown text="Button text" buttonStyle="extra-class" />
+		<Dropdown text="Button text" buttonStyle="extra-class">
+			<Dropdown.Item>Item</Dropdown.Item>
+		</Dropdown>
 	);
 
 	const button = screen.getByText('Button text');
@@ -18,7 +20,9 @@ it('renders with style props', () => {
 			text="Dropdown button"
 			buttonStyle="extra-style"
 			menuStyle="menu-extra-style"
-		/>
+		>
+			<Dropdown.Item>Item</Dropdown.Item>
+		</Dropdown>
 	);
 
 	const button = screen.getByText('Dropdown button');

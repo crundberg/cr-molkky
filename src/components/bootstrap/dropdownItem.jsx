@@ -24,4 +24,10 @@ DropdownItem.propTypes = {
 	onClick: PropTypes.func,
 };
 
+DropdownItem.defaultProps = {
+	href: '',
+	children: '',
+	onClick: () => {},
+};
+
 export default DropdownItem;

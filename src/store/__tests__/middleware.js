@@ -1,4 +1,4 @@
-import { asyncer, logger } from '../middlewares';
+import { logger } from '../middlewares';
 
 it('should handle logger in not development', () => {
 	logger({}, {}, {});

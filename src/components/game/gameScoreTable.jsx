@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePlayers } from 'hooks';
-import { GameScoreTableHeader, GameScoreTableRow } from './';
+import { GameScoreTableHeader, GameScoreTableRow } from '.';
 
 function GameScoreTable() {
 	const { players, sortScore } = usePlayers();

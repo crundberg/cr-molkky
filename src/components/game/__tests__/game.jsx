@@ -5,7 +5,7 @@ import { createMemoryHistory } from 'history';
 import Provider from 'store';
 import Game from '../game';
 
-const data = () => {
+const initialData = () => {
 	return JSON.stringify({
 		players: {
 			players: [
@@ -58,7 +58,7 @@ const setup = (data) => {
 };
 
 it('renders without crashing', () => {
-	setup(data());
+	setup(initialData());
 });
 
 it('use initial state if a new version is released', () => {
@@ -89,7 +89,7 @@ it('use initial state if a new version is released', () => {
 	const version = process.env.REACT_APP_VERSION;
 	process.env.REACT_APP_VERSION = 'newVersion';
 
-	const { ...screen } = setup(data);
+	setup(data);
 
 	process.env.REACT_APP_VERSION = version;
 });
@@ -100,7 +100,7 @@ it('redirects to start when new game button is pressed', () => {
 		return true;
 	};
 
-	const { ...screen } = setup(data());
+	const { ...screen } = setup(initialData());
 
 	const btnNewGame = screen.getByText('New game');
 	fireEvent.click(btnNewGame);
@@ -114,7 +114,7 @@ it('clear all players points when restart game button is pressed', () => {
 		return true;
 	};
 
-	const { ...screen } = setup(data());
+	const { ...screen } = setup(initialData());
 
 	const btnRestart = screen.getByText('Restart game');
 	fireEvent.click(btnRestart);
@@ -128,7 +128,7 @@ it('redirects to settings when settings button is pressed', () => {
 		return true;
 	};
 
-	const { ...screen } = setup(data());
+	const { ...screen } = setup(initialData());
 
 	const btnSettings = screen.getByText('Settings');
 	fireEvent.click(btnSettings);
@@ -149,7 +149,7 @@ it.skip('shows whose turn it is', () => {
 });
 
 it('is possible to press point buttons', () => {
-	const { ...screen } = setup(data());
+	const { ...screen } = setup(initialData());
 
 	const btnPoints = screen.getAllByTestId(/btnPoint/);
 	expect(btnPoints.length).toBe(13);
@@ -158,30 +158,32 @@ it('is possible to press point buttons', () => {
 		expect(btn).toHaveClass('btn-outline-primary');
 		fireEvent.click(btn);
 		expect(btn).toHaveClass('btn-primary');
+
+		return btn;
 	});
 });
 
 it('is not possible to add points if point button is not selected', () => {
-	const { ...screen } = setup(data());
+	const { ...screen } = setup(initialData());
 	const btnAdd = screen.getByTestId('btnAdd');
 	expect(btnAdd).toBeDisabled();
 
-	var btnPoints = screen.getByTestId('btnPoint6');
+	const btnPoints = screen.getByTestId('btnPoint6');
 	fireEvent.click(btnPoints);
 	expect(btnAdd).toBeEnabled();
 });
 
 it('should update add points button with selected points', () => {
-	const { ...screen } = setup(data());
+	const { ...screen } = setup(initialData());
 	const btnAdd = screen.getByTestId('btnAdd');
 
-	var btnPoints = screen.getByTestId('btnPoint6');
-	fireEvent.click(btnPoints);
+	const btnPoint6 = screen.getByTestId('btnPoint6');
+	fireEvent.click(btnPoint6);
 	expect(btnAdd).toBeEnabled();
 	expect(btnAdd).toHaveTextContent('OK (+6)');
 
-	btnPoints = screen.getByTestId('btnPoint0');
-	fireEvent.click(btnPoints);
+	const btnPoint0 = screen.getByTestId('btnPoint0');
+	fireEvent.click(btnPoint0);
 	expect(btnAdd).toBeEnabled();
 	expect(btnAdd).toHaveTextContent('Missed');
 

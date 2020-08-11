@@ -4,8 +4,8 @@ import './game.css';
 
 function GameScoreTableHeader() {
 	const { roundColumns } = usePlayers();
-	const scoreColStyle = { width: 12 + '%' };
-	const scoreSumColStyle = { width: 15 + '%' };
+	const scoreColStyle = { width: `${12}%` };
+	const scoreSumColStyle = { width: `${15}%` };
 
 	return (
 		<thead>

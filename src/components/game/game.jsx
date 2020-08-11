@@ -12,12 +12,12 @@ function Game() {
 		return <Redirect to="/" />;
 	}
 
-	const handleNewGameClick = (e) => {
+	const handleNewGameClick = () => {
 		window.confirm('Are you sure you want to start a new game?') &&
 			handleNewGame();
 	};
 
-	const handleRematchClick = (e) => {
+	const handleRematchClick = () => {
 		window.confirm('Are you sure you want to restart the game?') &&
 			handleRematch();
 	};

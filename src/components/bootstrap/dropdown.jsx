@@ -8,6 +8,11 @@ function Dropdown({ children, text, buttonStyle, menuStyle }) {
 	const [isVisible, setVisible] = useState(false);
 	const node = useRef();
 
+	const handleToggle = () => setVisible((visible) => !visible);
+	const handleClick = (e) => {
+		if (!node.current.contains(e.target)) setVisible(false);
+	};
+
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClick);
 
@@ -15,11 +20,6 @@ function Dropdown({ children, text, buttonStyle, menuStyle }) {
 			document.removeEventListener('mousedown', handleClick);
 		};
 	}, []);
-
-	const handleToggle = () => setVisible((visible) => !visible);
-	const handleClick = (e) => {
-		if (!node.current.contains(e.target)) setVisible(false);
-	};
 
 	const buttonClassName = classNames(
 		'btn btn-secondary dropdown-toggle',
@@ -43,10 +43,15 @@ function Dropdown({ children, text, buttonStyle, menuStyle }) {
 }
 
 Dropdown.propTypes = {
-	text: PropTypes.string,
-	children: PropTypes.any,
+	text: PropTypes.string.isRequired,
+	children: PropTypes.node.isRequired,
 	buttonStyle: PropTypes.string,
 	menuStyle: PropTypes.string,
+};
+
+Dropdown.defaultProps = {
+	buttonStyle: '',
+	menuStyle: '',
 };
 
 Dropdown.Item = DropdownItem;
