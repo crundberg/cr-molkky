@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Provider from 'store';
-import GamePoints from '../gamePoints';
+import GamePoints from '../points';
 
 const initialData = () => {
 	return JSON.stringify({

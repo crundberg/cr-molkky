@@ -27,7 +27,7 @@ DropdownItem.propTypes = {
 DropdownItem.defaultProps = {
 	href: '',
 	children: '',
-	onClick: () => {},
+	onClick: () => null,
 };
 
 export default DropdownItem;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { usePlayers } from 'hooks';
 import classNames from 'classnames';
-import './game.css';
+import '../game.css';
 
 function GamePoints() {
 	const [points, setPoints] = useState(-1);

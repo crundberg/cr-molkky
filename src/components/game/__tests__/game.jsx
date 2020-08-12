@@ -108,10 +108,38 @@ it('redirects to start when new game button is pressed', () => {
 	window.confirm = jsdomAlert;
 });
 
+it('does not redirects to start when new game button is pressed and cancel is pressed', () => {
+	const jsdomAlert = window.confirm;
+	window.confirm = () => {
+		return false;
+	};
+
+	const { ...screen } = setup(initialData());
+
+	const btnNewGame = screen.getByText('New game');
+	fireEvent.click(btnNewGame);
+
+	window.confirm = jsdomAlert;
+});
+
 it('clear all players points when restart game button is pressed', () => {
 	const jsdomAlert = window.confirm;
 	window.confirm = () => {
 		return true;
+	};
+
+	const { ...screen } = setup(initialData());
+
+	const btnRestart = screen.getByText('Restart game');
+	fireEvent.click(btnRestart);
+
+	window.confirm = jsdomAlert;
+});
+
+it('does not clear all players points when restart game button is pressed and cancel is pressed', () => {
+	const jsdomAlert = window.confirm;
+	window.confirm = () => {
+		return false;
 	};
 
 	const { ...screen } = setup(initialData());

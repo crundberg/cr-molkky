@@ -2,7 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { usePlayers } from 'hooks';
 import { Dropdown } from 'components/bootstrap';
-import { GameScoreTable, GamePoints } from '.';
+import { GameScoreTable } from './scoreTable';
+import { GamePoints } from './points';
 import './game.css';
 
 function Game() {
@@ -13,12 +14,12 @@ function Game() {
 	}
 
 	const handleNewGameClick = () => {
-		window.confirm('Are you sure you want to start a new game?') &&
+		if (window.confirm('Are you sure you want to start a new game?'))
 			handleNewGame();
 	};
 
 	const handleRematchClick = () => {
-		window.confirm('Are you sure you want to restart the game?') &&
+		if (window.confirm('Are you sure you want to restart the game?'))
 			handleRematch();
 	};
 

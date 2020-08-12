@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePlayers } from 'hooks';
-import './game.css';
+import '../../game.css';
 
 function GameScoreTableHeader() {
 	const { roundColumns } = usePlayers();

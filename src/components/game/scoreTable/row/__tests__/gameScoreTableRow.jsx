@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import Provider from 'store';
-import GameScoreTableRow from '../gameScoreTableRow';
+import GameScoreTableRow from '../row';
 
 const initialData = (players) => {
 	return JSON.stringify({

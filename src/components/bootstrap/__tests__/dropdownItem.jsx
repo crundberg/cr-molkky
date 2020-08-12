@@ -42,3 +42,15 @@ it('renders with onClick props', () => {
 	fireEvent.click(item);
 	expect(onClick).toHaveBeenCalled();
 });
+
+it('can handle default props for onClick', () => {
+	const history = createMemoryHistory();
+	const screen = render(
+		<Router history={history}>
+			<DropdownItem>Item</DropdownItem>
+		</Router>
+	);
+
+	const item = screen.getByText('Item');
+	fireEvent.click(item);
+});

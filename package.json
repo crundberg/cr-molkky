@@ -50,5 +50,11 @@
 		"eslint-plugin-react": "^7.20.5",
 		"eslint-plugin-react-hooks": "^4.0.0",
 		"prettier": "^2.0.5"
+	},
+	"jest": {
+		"coveragePathIgnorePatterns": [
+			"<rootDir>/src/index.jsx",
+			"<rootDir>/src/serviceWorker.js"
+		]
 	}
 }
