@@ -1,5 +1,6 @@
 import React from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
+import { handleNewGame } from 'store/player/actions';
 import Provider from 'store';
 import usePlayers from '..';
 
@@ -251,7 +252,7 @@ it('should calculate colums to show in scoreboard', () => {
 		handleAdd('Player 2', true);
 	});
 
-	expect(result.current.roundColumns()).toEqual(
+	expect(result.current.roundColumns).toEqual(
 		expect.arrayContaining([1, 2, 3, 4])
 	);
 
@@ -266,19 +267,19 @@ it('should calculate colums to show in scoreboard', () => {
 		handleAddPoint('Player 2', 1);
 	});
 
-	expect(result.current.roundColumns()).toEqual([2, 3, 4, 5]);
+	expect(result.current.roundColumns).toEqual([2, 3, 4, 5]);
 
 	act(() => {
 		handleAddPoint('Player 1', 1);
 	});
 
-	expect(result.current.roundColumns()).toEqual([2, 3, 4, 5]);
+	expect(result.current.roundColumns).toEqual([2, 3, 4, 5]);
 
 	act(() => {
 		handleAddPoint('Player 2', 1);
 	});
 
-	expect(result.current.roundColumns()).toEqual([3, 4, 5, 6]);
+	expect(result.current.roundColumns).toEqual([3, 4, 5, 6]);
 });
 
 describe('sort players', () => {
@@ -293,38 +294,32 @@ describe('sort players', () => {
 			handleAdd('Player 2', false);
 		});
 
-		sort = result.current.sortScore(
-			result.current.players[0],
-			result.current.players[1]
-		);
-		expect(sort).toBe(0);
+		sort = result.current.playersByScore;
+		expect(sort[0].name).toBe('Player 1');
+		expect(sort[1].name).toBe('Player 2');
 
 		// Round 1 starts
 		act(() => {
 			handleAddPoint('Player 1', 5);
 		});
 
-		sort = result.current.sortScore(
-			result.current.players[0],
-			result.current.players[1]
-		);
-		expect(sort).toBe(0);
+		sort = result.current.playersByScore;
+		expect(sort[0].name).toBe('Player 1');
+		expect(sort[1].name).toBe('Player 2');
 
 		// Round 1 finished
 		act(() => {
 			handleAddPoint('Player 2', 10);
 		});
 
-		sort = result.current.sortScore(
-			result.current.players[0],
-			result.current.players[1]
-		);
-		expect(sort).toBe(1);
+		sort = result.current.playersByScore;
+		expect(sort[0].name).toBe('Player 2');
+		expect(sort[1].name).toBe('Player 1');
 	});
 
 	it('should sort disqualified at the bottom', () => {
 		const { result } = setup();
-		const { sortScore, handleAdd, handleAddPoint } = result.current;
+		const { handleAdd, handleAddPoint } = result.current;
 		let sort;
 
 		// Add players
@@ -339,19 +334,33 @@ describe('sort players', () => {
 			handleAddPoint('Player 2', 0);
 		});
 
-		sort = sortScore(result.current.players[0], result.current.players[1]);
-		expect(sort).toBe(-1);
+		sort = result.current.playersByScore;
+		expect(sort[0].name).toBe('Player 1');
+		expect(sort[1].name).toBe('Player 2');
 
-		sort = sortScore(result.current.players[1], result.current.players[0]);
-		expect(sort).toBe(1);
+		// Add players
+		act(() => {
+			handleNewGame();
+			handleAdd('Player 1', false);
+			handleAdd('Player 2', false);
+			handleAddPoint('Player 1', 0);
+			handleAddPoint('Player 2', 12);
+			handleAddPoint('Player 1', 0);
+			handleAddPoint('Player 2', 12);
+			handleAddPoint('Player 1', 0);
+			handleAddPoint('Player 2', 12);
+		});
+
+		sort = result.current.playersByScore;
+		expect(sort[0].name).toBe('Player 1');
+		expect(sort[1].name).toBe('Player 2');
 	});
 
 	it('should sort by points', () => {
 		const { result } = setup();
-		const { sortScore, handleAdd, handleAddPoint } = result.current;
+		const { handleAdd, handleAddPoint } = result.current;
 		let sort;
 
-		// Add players
 		act(() => {
 			handleAdd('Player 1', false);
 			handleAdd('Player 2', false);
@@ -359,19 +368,24 @@ describe('sort players', () => {
 			handleAddPoint('Player 2', 10);
 		});
 
-		sort = sortScore(result.current.players[0], result.current.players[1]);
-		expect(sort).toBe(-1);
+		sort = result.current.playersByScore;
+		expect(sort[0].name).toBe('Player 1');
+		expect(sort[1].name).toBe('Player 2');
 
-		sort = sortScore(result.current.players[1], result.current.players[0]);
-		expect(sort).toBe(1);
+		act(() => {
+			handleAddPoint('Player 1', 9);
+			handleAddPoint('Player 2', 12);
+		});
+
+		sort = result.current.playersByScore;
+		expect(sort[0].name).toBe('Player 2');
+		expect(sort[1].name).toBe('Player 1');
 	});
 
-	it('should return 0 if equal', () => {
+	it('should do noting if equal', () => {
 		const { result } = setup();
-		const { sortScore, handleAdd, handleAddPoint } = result.current;
-		let sort;
+		const { handleAdd, handleAddPoint } = result.current;
 
-		// Add players
 		act(() => {
 			handleAdd('Player 1', false);
 			handleAdd('Player 2', false);
@@ -379,11 +393,9 @@ describe('sort players', () => {
 			handleAddPoint('Player 2', 12);
 		});
 
-		sort = sortScore(result.current.players[0], result.current.players[1]);
-		expect(sort).toBe(0);
-
-		sort = sortScore(result.current.players[1], result.current.players[0]);
-		expect(sort).toBe(0);
+		const sort = result.current.playersByScore;
+		expect(sort[0].name).toBe('Player 1');
+		expect(sort[1].name).toBe('Player 2');
 	});
 });
 

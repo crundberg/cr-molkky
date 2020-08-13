@@ -21,7 +21,7 @@ function GameScoreTableRow({ player }) {
 				{name}
 				{handicap && <span className="badge badge-warning">HCP</span>}
 			</th>
-			{roundColumns().map((round) => {
+			{roundColumns.map((round) => {
 				const roundPoints = points[round - 1];
 
 				return (

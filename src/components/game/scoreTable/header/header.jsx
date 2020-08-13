@@ -11,7 +11,7 @@ function GameScoreTableHeader() {
 		<thead>
 			<tr>
 				<th scope="col">Name</th>
-				{roundColumns().map((round) => {
+				{roundColumns.map((round) => {
 					return (
 						<th scope="col" style={scoreColStyle} key={round}>
 							{round}

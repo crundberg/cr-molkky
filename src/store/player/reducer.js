@@ -5,6 +5,31 @@ export const initialState = {
 	players: [],
 };
 
+export const addPointsReducer = (state, action) => {
+	return state.players.map((player, _index, array) => {
+		if (player.name === action.payload.name) {
+			const newPlayer = player;
+			newPlayer.points.push(action.payload.points);
+			newPlayer.currentPoints += action.payload.points;
+
+			if (newPlayer.currentPoints === 50 && newPlayer.finishedPos === 0) {
+				newPlayer.finishedPos =
+					array.filter((x) => x.finishedPos > 0).length + 1;
+			} else if (newPlayer.currentPoints > 50) newPlayer.currentPoints = 25;
+
+			if (action.payload.points === 0) newPlayer.misses += 1;
+			else newPlayer.misses = 0;
+
+			if (newPlayer.misses >= 3 && !newPlayer.handicap)
+				newPlayer.disqualified = true;
+
+			return newPlayer;
+		}
+
+		return player;
+	});
+};
+
 export default function players(state = initialState, action) {
 	switch (action.type) {
 		case PLAYER_TYPE.ADD:
@@ -20,32 +45,9 @@ export default function players(state = initialState, action) {
 				),
 			};
 		case PLAYER_TYPE.ADD_POINT:
-			const newPlayers = state.players.map((player, _index, array) => {
-				if (player.name === action.payload.name) {
-					const newPlayer = player;
-					newPlayer.points.push(action.payload.points);
-					newPlayer.currentPoints += action.payload.points;
-
-					if (newPlayer.currentPoints === 50 && newPlayer.finishedPos === 0) {
-						newPlayer.finishedPos =
-							array.filter((x) => x.finishedPos > 0).length + 1;
-					} else if (newPlayer.currentPoints > 50) newPlayer.currentPoints = 25;
-
-					if (action.payload.points === 0) newPlayer.misses += 1;
-					else newPlayer.misses = 0;
-
-					if (newPlayer.misses >= 3 && !newPlayer.handicap)
-						newPlayer.disqualified = true;
-
-					return newPlayer;
-				}
-
-				return player;
-			});
-
 			return {
 				...state,
-				players: newPlayers,
+				players: addPointsReducer(state, action),
 			};
 		case PLAYER_TYPE.NEW_GAME:
 			return initialState;
@@ -60,7 +62,7 @@ export default function players(state = initialState, action) {
 					newPlayer.disqualified = false;
 					newPlayer.finishedPos = 0;
 
-					return player;
+					return newPlayer;
 				}),
 			};
 		case PLAYER_TYPE.SHUFFLE:
