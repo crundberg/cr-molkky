@@ -8,7 +8,6 @@ export function handleAdd(name, handicap) {
 			handicap,
 			points: [],
 			currentPoints: 0,
-			misses: 0,
 			disqualified: false,
 			finishedPos: 0,
 		},

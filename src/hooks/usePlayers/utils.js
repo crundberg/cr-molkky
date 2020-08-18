@@ -64,3 +64,18 @@ export const getPlayersByScore = (players, newRound) => {
 		return comparison;
 	});
 };
+
+export const calcPlayerScore = (player) => {
+	return player.points.reduce((score, points) => {
+		const newScore = score + points;
+		return newScore > 50 ? 25 : newScore;
+	}, 0);
+};
+
+export const calcPlayerDisqualified = (player) => {
+	if (player.points.length < 3 || player.handicap) return false;
+
+	return player.points.slice(-3).every((point) => {
+		return point === 0;
+	});
+};

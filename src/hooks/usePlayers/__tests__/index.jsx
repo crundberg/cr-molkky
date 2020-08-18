@@ -242,7 +242,7 @@ it('should check if its a new round', () => {
 	expect(result.current.newRound).toBe(true);
 });
 
-it('should calculate colums to show in scoreboard', () => {
+it('should calculate columns to show in scoreboard', () => {
 	const { result } = setup();
 	const { handleAdd, handleAddPoint } = result.current;
 

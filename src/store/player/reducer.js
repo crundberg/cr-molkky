@@ -1,3 +1,8 @@
+import {
+	calcPlayerScore,
+	calcPlayerDisqualified,
+} from 'hooks/usePlayers/utils';
+
 import * as PLAYER_TYPE from './types';
 
 export const initialState = {
@@ -10,18 +15,13 @@ export const addPointsReducer = (state, action) => {
 		if (player.name === action.payload.name) {
 			const newPlayer = player;
 			newPlayer.points.push(action.payload.points);
-			newPlayer.currentPoints += action.payload.points;
+			newPlayer.currentPoints = calcPlayerScore(newPlayer);
+			newPlayer.disqualified = calcPlayerDisqualified(newPlayer);
 
 			if (newPlayer.currentPoints === 50 && newPlayer.finishedPos === 0) {
 				newPlayer.finishedPos =
 					array.filter((x) => x.finishedPos > 0).length + 1;
-			} else if (newPlayer.currentPoints > 50) newPlayer.currentPoints = 25;
-
-			if (action.payload.points === 0) newPlayer.misses += 1;
-			else newPlayer.misses = 0;
-
-			if (newPlayer.misses >= 3 && !newPlayer.handicap)
-				newPlayer.disqualified = true;
+			}
 
 			return newPlayer;
 		}

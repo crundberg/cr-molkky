@@ -70,7 +70,6 @@ describe('should handle add point', () => {
 						points: [],
 						currentPoints: 0,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -78,7 +77,6 @@ describe('should handle add point', () => {
 						points: [],
 						currentPoints: 0,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -86,7 +84,6 @@ describe('should handle add point', () => {
 						points: [],
 						currentPoints: 0,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 				],
@@ -118,7 +115,6 @@ describe('should handle add point', () => {
 						points: [0],
 						currentPoints: 0,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -126,7 +122,6 @@ describe('should handle add point', () => {
 						points: [40],
 						currentPoints: 40,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -134,7 +129,6 @@ describe('should handle add point', () => {
 						points: [20],
 						currentPoints: 20,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 				],
@@ -161,7 +155,6 @@ describe('should handle add point', () => {
 						points: [50],
 						currentPoints: 50,
 						finishedPos: 1,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -169,7 +162,6 @@ describe('should handle add point', () => {
 						points: [40],
 						currentPoints: 40,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -177,7 +169,6 @@ describe('should handle add point', () => {
 						points: [20],
 						currentPoints: 20,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 				],
@@ -204,7 +195,6 @@ describe('should handle add point', () => {
 						points: [0],
 						currentPoints: 0,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -212,7 +202,6 @@ describe('should handle add point', () => {
 						points: [40],
 						currentPoints: 40,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -220,7 +209,6 @@ describe('should handle add point', () => {
 						points: [20],
 						currentPoints: 20,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 				],
@@ -238,7 +226,7 @@ describe('should handle add point', () => {
 	});
 
 	it('should handle a miss', () => {
-		const players = Reducer(
+		Reducer(
 			{
 				players: [
 					{
@@ -246,7 +234,6 @@ describe('should handle add point', () => {
 						points: [0],
 						currentPoints: 0,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -254,7 +241,6 @@ describe('should handle add point', () => {
 						points: [40],
 						currentPoints: 40,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -262,7 +248,6 @@ describe('should handle add point', () => {
 						points: [20],
 						currentPoints: 20,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 				],
@@ -275,50 +260,6 @@ describe('should handle add point', () => {
 				},
 			}
 		);
-
-		expect(players.players[1].misses).toBe(1);
-	});
-
-	it('should reset misses after a successful throw', () => {
-		const players = Reducer(
-			{
-				players: [
-					{
-						name: 'Player 1',
-						points: [0],
-						currentPoints: 0,
-						finishedPos: 0,
-						misses: 0,
-						disqualified: false,
-					},
-					{
-						name: 'Player 2',
-						points: [40, 0],
-						currentPoints: 40,
-						finishedPos: 0,
-						misses: 1,
-						disqualified: false,
-					},
-					{
-						name: 'Player 3',
-						points: [20],
-						currentPoints: 20,
-						finishedPos: 0,
-						misses: 0,
-						disqualified: false,
-					},
-				],
-			},
-			{
-				type: PLAYER.ADD_POINT,
-				payload: {
-					name: 'Player 2',
-					points: 1,
-				},
-			}
-		);
-
-		expect(players.players[1].misses).toBe(0);
 	});
 
 	it('should handle disqualification after three misses', () => {
@@ -330,7 +271,6 @@ describe('should handle add point', () => {
 						points: [0, 1, 2],
 						currentPoints: 3,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -338,7 +278,6 @@ describe('should handle add point', () => {
 						points: [0, 1, 2],
 						currentPoints: 3,
 						finishedPos: 0,
-						misses: 0,
 						disqualified: false,
 					},
 					{
@@ -346,7 +285,6 @@ describe('should handle add point', () => {
 						points: [0, 0],
 						currentPoints: 20,
 						finishedPos: 0,
-						misses: 2,
 						disqualified: false,
 					},
 				],
@@ -360,7 +298,6 @@ describe('should handle add point', () => {
 			}
 		);
 
-		expect(players.players[2].misses).toBe(3);
 		expect(players.players[2].disqualified).toBe(true);
 	});
 });
@@ -374,7 +311,6 @@ it('should handle new game', () => {
 					points: [0, 1, 2],
 					currentPoints: 3,
 					finishedPos: 0,
-					misses: 0,
 					disqualified: false,
 				},
 				{
@@ -382,7 +318,6 @@ it('should handle new game', () => {
 					points: [0, 1, 2],
 					currentPoints: 3,
 					finishedPos: 0,
-					misses: 0,
 					disqualified: false,
 				},
 				{
@@ -390,7 +325,6 @@ it('should handle new game', () => {
 					points: [0, 0],
 					currentPoints: 20,
 					finishedPos: 0,
-					misses: 2,
 					disqualified: false,
 				},
 			],
@@ -414,7 +348,6 @@ it('should handle rematch', () => {
 					points: [0, 1, 2],
 					currentPoints: 3,
 					finishedPos: 0,
-					misses: 0,
 					disqualified: false,
 				},
 				{
@@ -422,7 +355,6 @@ it('should handle rematch', () => {
 					points: [0, 1, 2],
 					currentPoints: 3,
 					finishedPos: 0,
-					misses: 0,
 					disqualified: false,
 				},
 				{
@@ -430,7 +362,6 @@ it('should handle rematch', () => {
 					points: [0, 0],
 					currentPoints: 20,
 					finishedPos: 0,
-					misses: 2,
 					disqualified: false,
 				},
 			],
@@ -446,7 +377,6 @@ it('should handle rematch', () => {
 	for (let n = 0; n < 3; n += 1) {
 		expect(players.players[n].points).toHaveLength(0);
 		expect(players.players[n].currentPoints).toBe(0);
-		expect(players.players[n].misses).toBe(0);
 		expect(players.players[n].disqualified).toBe(false);
 		expect(players.players[n].finishedPos).toBe(0);
 	}
