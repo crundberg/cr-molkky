@@ -1,4 +1,8 @@
-import { calcPlayerScore, calcPlayerDisqualified } from '../utils';
+import {
+	calcPlayerScore,
+	calcPlayerDisqualified,
+	getPlayersByScore,
+} from '../utils';
 
 describe('calculate players score', () => {
 	it('adds all points', () => {
@@ -80,5 +84,40 @@ describe('calculate if player is disqualified', () => {
 		player.points.push(0);
 		isDisqualified = calcPlayerDisqualified(player);
 		expect(isDisqualified).toBeFalsy();
+	});
+});
+
+describe('get players by score', () => {
+	it('should only sort if its a new round', () => {
+		const players = [
+			{ name: 'P1', disqualified: false, currentPoints: 6 },
+			{ name: 'P2', disqualified: false, currentPoints: 10 },
+			{ name: 'P3', disqualified: false, currentPoints: 5 },
+		];
+
+		let sorting = getPlayersByScore(players, false);
+		expect(sorting[0].name).toBe('P1');
+		expect(sorting[1].name).toBe('P2');
+		expect(sorting[2].name).toBe('P3');
+
+		sorting = getPlayersByScore(players, true);
+		expect(sorting[0].name).toBe('P2');
+		expect(sorting[1].name).toBe('P1');
+		expect(sorting[2].name).toBe('P3');
+	});
+
+	it('should sort by points with disqualified at the bottom', () => {
+		const players = [
+			{ name: 'P1', disqualified: false, currentPoints: 6 },
+			{ name: 'P2', disqualified: true, currentPoints: 10 },
+			{ name: 'P3', disqualified: true, currentPoints: 5 },
+			{ name: 'P4', disqualified: false, currentPoints: 7 },
+		];
+
+		const sorting = getPlayersByScore(players, true);
+		expect(sorting[0].name).toBe('P4');
+		expect(sorting[1].name).toBe('P1');
+		expect(sorting[2].name).toBe('P2');
+		expect(sorting[3].name).toBe('P3');
 	});
 });

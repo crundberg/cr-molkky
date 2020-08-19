@@ -47,21 +47,14 @@ export const getPlayersTurn = (players) => {
 
 export const getPlayersByScore = (players, newRound) => {
 	return players.sort((a, b) => {
-		let comparison = 0;
-
 		if (!newRound) return 0; // Sort after a complete round
 
-		if (!a.disqualified && b.disqualified) {
-			comparison = -1;
-		} else if (a.disqualified && !b.disqualified) {
-			comparison = 1;
-		} else if (a.currentPoints > b.currentPoints) {
-			comparison = -1;
-		} else if (a.currentPoints < b.currentPoints) {
-			comparison = 1;
-		}
+		if (!a.disqualified && b.disqualified) return -1;
+		if (a.disqualified && !b.disqualified) return 1;
+		if (a.currentPoints > b.currentPoints) return -1;
+		if (a.currentPoints < b.currentPoints) return 1;
 
-		return comparison;
+		return 0;
 	});
 };
 
