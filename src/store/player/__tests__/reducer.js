@@ -4,7 +4,6 @@ import * as PLAYER from '../types';
 it('should return the initial state', () => {
 	const players = Reducer(undefined, {});
 
-	expect(players.finished).toBe(0);
 	expect(players.players).toHaveLength(0);
 });
 
@@ -335,7 +334,6 @@ it('should handle new game', () => {
 		}
 	);
 
-	expect(players.finished).toBe(0);
 	expect(players.players).toHaveLength(0);
 });
 

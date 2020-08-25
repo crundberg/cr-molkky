@@ -6,7 +6,6 @@ import {
 import * as PLAYER_TYPE from './types';
 
 export const initialState = {
-	finished: 0,
 	players: [],
 };
 

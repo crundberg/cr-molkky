@@ -164,18 +164,6 @@ it('redirects to settings when settings button is pressed', () => {
 	window.confirm = jsdomAlert;
 });
 
-it.skip('sorts players after points and then disqualified', () => {
-	setup();
-});
-
-it.skip('shows current points and misses for each player', () => {
-	setup();
-});
-
-it.skip('shows whose turn it is', () => {
-	setup();
-});
-
 it('is possible to press point buttons', () => {
 	const { ...screen } = setup(initialData());
 
@@ -221,13 +209,5 @@ it('should update add points button with selected points', () => {
 });
 
 it('should redirect to start if no players are found', () => {
-	setup();
-});
-
-it.skip('should select players turn by finished, disqualified, round and lowest point', () => {
-	setup();
-});
-
-it.skip('should sort score by finished, disqualified, round and lowest point', () => {
 	setup();
 });

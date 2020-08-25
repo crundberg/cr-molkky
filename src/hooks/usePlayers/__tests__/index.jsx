@@ -421,7 +421,3 @@ it('shows whose turn it is', () => {
 	expect(testNextTurn(result, 'Player 4', 6)).toBe('Player 3');
 	expect(testNextTurn(result, 'Player 3', 6)).toBe('Player 1');
 });
-
-it.skip('should select players turn by finished, disqualified, round and lowest point', () => {});
-
-it.skip('should sort score by finished, disqualified, round and lowest point', () => {});
