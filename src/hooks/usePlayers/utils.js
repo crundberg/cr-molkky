@@ -1,5 +1,7 @@
 export const isPlayerLeft = (player) =>
-	player.currentPoints !== 50 && !player.disqualified;
+	player.currentPoints !== 50 &&
+	!player.disqualified &&
+	player.finishedPos === 0;
 
 export const getCurrentRound = (players) => {
 	return players.reduce((rounds, player) => {
@@ -71,4 +73,13 @@ export const calcPlayerDisqualified = (player) => {
 	return player.points.slice(-3).every((point) => {
 		return point === 0;
 	});
+};
+
+export const calcPlayerFinishedPos = (player, players) => {
+	if (player.finishedPos > 0) return player.finishedPos;
+	if (player.currentPoints === 50) {
+		return players.filter((x) => x.finishedPos > 0).length + 1;
+	}
+
+	return 0;
 };

@@ -1,6 +1,7 @@
 import {
 	calcPlayerScore,
 	calcPlayerDisqualified,
+	calcPlayerFinishedPos,
 	getPlayersByScore,
 } from '../utils';
 
@@ -84,6 +85,44 @@ describe('calculate if player is disqualified', () => {
 		player.points.push(0);
 		isDisqualified = calcPlayerDisqualified(player);
 		expect(isDisqualified).toBeFalsy();
+	});
+});
+
+describe('calculate finished position', () => {
+	it('should return same position if finished position is greater than 0', () => {
+		const player = { name: 'Player 1', currentPoints: 50, finishedPos: 1 };
+		const players = [
+			{ name: 'Player 1', currentPoints: 50, finishedPos: 1 },
+			{ name: 'Player 2', currentPoints: 0, finishedPos: 0 },
+			{ name: 'Player 3', currentPoints: 0, finishedPos: 0 },
+		];
+
+		const position = calcPlayerFinishedPos(player, players);
+		expect(position).toBe(1);
+	});
+
+	it('should return first position if points is equal to 50 and finished position is 0', () => {
+		const player = { name: 'Player 1', currentPoints: 50, finishedPos: 0 };
+		const players = [
+			{ name: 'Player 1', currentPoints: 50, finishedPos: 0 },
+			{ name: 'Player 2', currentPoints: 0, finishedPos: 0 },
+			{ name: 'Player 3', currentPoints: 0, finishedPos: 0 },
+		];
+
+		const position = calcPlayerFinishedPos(player, players);
+		expect(position).toBe(1);
+	});
+
+	it('should return second position if points is equal to 50 and another player won', () => {
+		const player = { name: 'Player 1', currentPoints: 50, finishedPos: 0 };
+		const players = [
+			{ name: 'Player 1', currentPoints: 50, finishedPos: 0 },
+			{ name: 'Player 2', currentPoints: 50, finishedPos: 1 },
+			{ name: 'Player 3', currentPoints: 0, finishedPos: 0 },
+		];
+
+		const position = calcPlayerFinishedPos(player, players);
+		expect(position).toBe(2);
 	});
 });
 
