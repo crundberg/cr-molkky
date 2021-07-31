@@ -20,7 +20,7 @@ const setup = (data, player) => {
 		<Provider>
 			<table>
 				<tbody>
-					<GameScoreTableRow player={player} />
+					<GameScoreTableRow player={player} key={player.name} />
 				</tbody>
 			</table>
 		</Provider>
@@ -38,8 +38,8 @@ it('renders without crashing', () => {
 			handicap: false,
 			points: [12, 0, null],
 			currentPoints: 12,
-			misses: 0,
 			disqualified: false,
+			finishedPos: 0,
 		},
 	];
 
@@ -53,8 +53,8 @@ it('should indicate players turn', () => {
 			handicap: false,
 			points: [12, 0, null],
 			currentPoints: 12,
-			misses: 0,
 			disqualified: false,
+			finishedPos: 0,
 		},
 	];
 
@@ -71,16 +71,16 @@ it('should not indicate another players turn', () => {
 			handicap: false,
 			points: [12, 0, null],
 			currentPoints: 12,
-			misses: 0,
 			disqualified: false,
+			finishedPos: 0,
 		},
 		{
 			name: 'Player 2',
 			handicap: false,
 			points: [12, 0],
 			currentPoints: 12,
-			misses: 0,
 			disqualified: false,
+			finishedPos: 0,
 		},
 	];
 
@@ -97,8 +97,8 @@ it('should indicate player is disqualified', () => {
 			handicap: false,
 			points: [0, 0, 0],
 			currentPoints: 0,
-			misses: 3,
 			disqualified: true,
+			finishedPos: 0,
 		},
 	];
 
@@ -115,8 +115,8 @@ it('should not indicate player is not disqualified', () => {
 			handicap: false,
 			points: [0, 0, 12],
 			currentPoints: 12,
-			misses: 0,
 			disqualified: false,
+			finishedPos: 0,
 		},
 	];
 
@@ -133,8 +133,8 @@ it('should indicate player who finished', () => {
 			handicap: false,
 			points: [50],
 			currentPoints: 50,
-			misses: 0,
 			disqualified: false,
+			finishedPos: 0,
 		},
 	];
 
@@ -151,8 +151,8 @@ it('should not indicate player is not disqualified', () => {
 			handicap: false,
 			points: [0, 0, 12],
 			currentPoints: 12,
-			misses: 0,
 			disqualified: false,
+			finishedPos: 0,
 		},
 	];
 
@@ -169,8 +169,8 @@ it('should indicate if player has handicap', () => {
 			handicap: true,
 			points: [0, 0, 12],
 			currentPoints: 12,
-			misses: 0,
 			disqualified: false,
+			finishedPos: 0,
 		},
 	];
 

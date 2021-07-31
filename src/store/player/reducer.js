@@ -58,7 +58,6 @@ export default function players(state = initialState, action) {
 					const newPlayer = player;
 					newPlayer.points = [];
 					newPlayer.currentPoints = 0;
-					newPlayer.misses = 0;
 					newPlayer.disqualified = false;
 					newPlayer.finishedPos = 0;
 
