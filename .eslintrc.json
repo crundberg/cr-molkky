@@ -1,0 +1,46 @@
+{
+	"root": true,
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"parserOptions": {
+		"parser": "babel-eslint",
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"extends": [
+		"prettier",
+		"airbnb",
+		"plugin:react/recommended",
+		"plugin:prettier/recommended"
+	],
+	"plugins": ["prettier"],
+	"rules": {
+		"react/prop-types": 1,
+		"prettier/prettier": ["error"],
+		"react/jsx-indent": [2, "tab"],
+		"react/jsx-indent-props": [2, "tab"]
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"paths": ["src"]
+			}
+		}
+	},
+	"overrides": [
+		{
+			"files": ["**/__tests__/*.js", "**/__tests__/*.jsx"],
+			"env": {
+				"jest": true
+			}
+		},
+		{
+			"files": ["index.js"],
+			"rules": {
+				"import/prefer-default-export": "off"
+			}
+		}
+	]
+}
