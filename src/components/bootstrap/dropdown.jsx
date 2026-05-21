@@ -1,43 +1,50 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import DropdownItem from './dropdownItem';
 import DropdownDivider from './dropdownDivider';
 
-function Dropdown({ children, text, buttonStyle, menuStyle }) {
+function Dropdown({ children, text }) {
 	const [isVisible, setVisible] = useState(false);
 	const node = useRef();
 
-	const handleToggle = () => setVisible((visible) => !visible);
-	const handleClick = (e) => {
-		if (!node.current.contains(e.target)) setVisible(false);
-	};
-
 	useEffect(() => {
-		document.addEventListener('mousedown', handleClick);
-
-		return () => {
-			document.removeEventListener('mousedown', handleClick);
+		const handleClick = (e) => {
+			if (!node.current.contains(e.target)) setVisible(false);
 		};
+		document.addEventListener('mousedown', handleClick);
+		return () => document.removeEventListener('mousedown', handleClick);
 	}, []);
 
-	const buttonClassName = classNames(
-		'btn btn-secondary dropdown-toggle',
-		buttonStyle
-	);
-
-	const menuClassName = classNames('dropdown-menu', menuStyle, {
-		show: isVisible,
-	});
-
 	return (
-		<div className="dropdown" ref={node}>
-			<button className={buttonClassName} onClick={handleToggle} type="button">
+		<div className="relative" ref={node}>
+			<button
+				className="flex items-center gap-1.5 text-sm px-3 py-1.5 bg-white border border-slate-200 rounded-lg shadow-sm hover:bg-slate-50 transition-colors font-medium text-slate-700"
+				onClick={() => setVisible((v) => !v)}
+				type="button"
+			>
 				{text}
+				<svg
+					className="w-3.5 h-3.5 text-slate-400"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+				>
+					<path
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						strokeWidth={2}
+						d="M19 9l-7 7-7-7"
+					/>
+				</svg>
 			</button>
-			<div className={menuClassName} data-testid="dropdown-menu">
-				{children}
-			</div>
+			{isVisible && (
+				<div
+					className="absolute right-0 mt-1.5 w-44 bg-white rounded-xl shadow-lg border border-slate-200 py-1 z-50"
+					data-testid="dropdown-menu"
+				>
+					{children}
+				</div>
+			)}
 		</div>
 	);
 }
@@ -45,13 +52,6 @@ function Dropdown({ children, text, buttonStyle, menuStyle }) {
 Dropdown.propTypes = {
 	text: PropTypes.string.isRequired,
 	children: PropTypes.node.isRequired,
-	buttonStyle: PropTypes.string,
-	menuStyle: PropTypes.string,
-};
-
-Dropdown.defaultProps = {
-	buttonStyle: '',
-	menuStyle: '',
 };
 
 Dropdown.Item = DropdownItem;

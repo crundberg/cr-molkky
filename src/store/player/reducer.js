@@ -12,12 +12,12 @@ export const initialState = {
 export const addPointsReducer = (state, action) => {
 	return state.players.map((player, _index, array) => {
 		if (player.name === action.payload.name) {
-			const newPlayer = player;
-			newPlayer.points.push(action.payload.points);
+			const newPoints = [...player.points, action.payload.points];
+			const newPlayer = { ...player, points: newPoints };
 			newPlayer.currentPoints = calcPlayerScore(newPlayer);
 			newPlayer.disqualified = calcPlayerDisqualified(newPlayer);
 
-			if (newPlayer.currentPoints === 50 && newPlayer.finishedPos === 0) {
+			if (newPlayer.currentPoints === 50 && player.finishedPos === 0) {
 				newPlayer.finishedPos =
 					array.filter((x) => x.finishedPos > 0).length + 1;
 			}
@@ -53,16 +53,14 @@ export default function players(state = initialState, action) {
 		case PLAYER_TYPE.REMATCH:
 			return {
 				...state,
-				players: state.players.map((player) => {
-					const newPlayer = player;
-					newPlayer.points = [];
-					newPlayer.currentPoints = 0;
-					newPlayer.misses = 0;
-					newPlayer.disqualified = false;
-					newPlayer.finishedPos = 0;
-
-					return newPlayer;
-				}),
+				players: state.players.map((player) => ({
+					...player,
+					points: [],
+					currentPoints: 0,
+					misses: 0,
+					disqualified: false,
+					finishedPos: 0,
+				})),
 			};
 		case PLAYER_TYPE.SHUFFLE:
 			return {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Start } from 'components/start';
 import { Players } from 'components/players';
 import { Game } from 'components/game';
@@ -11,12 +11,12 @@ function App() {
 	return (
 		<Router>
 			<Provider>
-				<Switch>
-					<Route exact path="/" component={Start} />
-					<Route exact path="/players" component={Players} />
-					<Route exact path="/game" component={Game} />
-					<Route exact path="/settings" component={Settings} />
-				</Switch>
+				<Routes>
+					<Route path="/" element={<Start />} />
+					<Route path="/players" element={<Players />} />
+					<Route path="/game" element={<Game />} />
+					<Route path="/settings" element={<Settings />} />
+				</Routes>
 			</Provider>
 		</Router>
 	);

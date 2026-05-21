@@ -1,7 +1,7 @@
 import React from 'react';
 
-function divider() {
-	return <div className="dropdown-divider" />;
+function DropdownDivider() {
+	return <div className="my-1 border-t border-slate-100" />;
 }
 
-export default divider;
+export default DropdownDivider;

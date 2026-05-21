@@ -4,17 +4,19 @@ import { GameScoreTableHeader } from './header';
 import { GameScoreTableRow } from './row';
 
 function GameScoreTable() {
-	const { players, sortScore } = usePlayers();
+	const { playersByScore } = usePlayers();
 
 	return (
-		<table className="table">
-			<GameScoreTableHeader />
-			<tbody>
-				{players.sort(sortScore).map((player) => (
-					<GameScoreTableRow player={player} key={player.name} />
-				))}
-			</tbody>
-		</table>
+		<div className="overflow-x-auto">
+			<table className="w-full">
+				<GameScoreTableHeader />
+				<tbody>
+					{playersByScore.map((player) => (
+						<GameScoreTableRow player={player} key={player.name} />
+					))}
+				</tbody>
+			</table>
+		</div>
 	);
 }
 

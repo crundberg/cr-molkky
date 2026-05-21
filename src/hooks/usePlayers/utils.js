@@ -46,7 +46,7 @@ export const getPlayersTurn = (players) => {
 };
 
 export const getPlayersByScore = (players, newRound) => {
-	return players.sort((a, b) => {
+	return [...players].sort((a, b) => {
 		if (!newRound) return 0; // Sort after a complete round
 
 		if (!a.disqualified && b.disqualified) return -1;
