@@ -2,6 +2,28 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { usePlayers } from 'hooks';
 
+const rules = [
+	{
+		heading: 'Objective',
+		text: 'Be the first player to reach exactly 50 points.',
+	},
+	{
+		heading: 'Scoring',
+		text: 'Knock down 1 skittle → score its number (1–12). Knock down multiple skittles → score the count (e.g. knocking over 4 skittles = 4 points).',
+	},
+	{
+		heading: 'Over 50',
+		text: 'Exceeding 50 resets your score to 25.',
+	},
+	{
+		heading: 'Disqualification',
+		text: 'Three consecutive misses (0 points) knocks a player out of the game. Players with handicap (HCP) are exempt.',
+	},
+];
+
+// Skittle rows from furthest to closest (throwing line at bottom)
+const skittleRows = [[7, 9, 8], [5, 11, 12, 6], [3, 10, 4], [1, 2]];
+
 function Start() {
 	const version = `v${import.meta.env.VITE_APP_VERSION}`;
 	const { handleNewGame } = usePlayers();
@@ -19,8 +41,51 @@ function Start() {
 						New game
 					</Link>
 				</div>
-				<div className="px-4 py-4">
-					<p className="text-sm text-slate-400">{version}</p>
+
+				<div className="px-4 pt-5 pb-4 space-y-4">
+					<p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+						How to play
+					</p>
+					<ul className="space-y-3">
+						{rules.map((rule) => (
+							<li key={rule.heading} className="flex gap-3">
+								<span className="shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5" />
+								<p className="text-sm text-slate-600 leading-snug">
+									<span className="font-semibold text-slate-800">
+										{rule.heading}:{' '}
+									</span>
+									{rule.text}
+								</p>
+							</li>
+						))}
+					</ul>
+
+					<div className="pt-1">
+						<p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
+							Initial setup
+						</p>
+						<div className="flex flex-col items-center gap-1.5">
+							{skittleRows.map((row) => (
+								<div key={row[0]} className="flex gap-1.5">
+									{row.map((n) => (
+										<span
+											key={n}
+											className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-700 text-xs font-bold"
+										>
+											{n}
+										</span>
+									))}
+								</div>
+							))}
+							<div className="mt-1 w-full flex items-center gap-2">
+								<div className="flex-1 border-t border-dashed border-slate-300" />
+								<p className="text-xs text-slate-400 shrink-0">Throwing line</p>
+								<div className="flex-1 border-t border-dashed border-slate-300" />
+							</div>
+						</div>
+					</div>
+
+					<p className="text-xs text-slate-300 pt-1">{version}</p>
 				</div>
 			</div>
 		</div>

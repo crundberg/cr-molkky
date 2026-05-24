@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useGlobalStore } from 'store';
 import bindActions from 'store/bindActions';
 import storeReducer from 'store/player';
@@ -48,7 +49,16 @@ const usePlayers = () => {
 	const newRound = isNewRound(players, currentRound);
 	const roundColumns = getRoundColumns(currentRound, newRound);
 	const playersTurn = getPlayersTurn(players);
-	const playersByScore = getPlayersByScore(players, newRound);
+
+	// Only re-sort after a complete round; hold the previous order mid-round
+	const playerOrderRef = useRef(null);
+	if (newRound || playerOrderRef.current === null) {
+		playerOrderRef.current = getPlayersByScore(players).map((p) => p.name);
+	}
+	// Map stable order back to current player objects so scores stay live
+	const playersByScore = playerOrderRef.current.map(
+		(name) => players.find((p) => p.name === name)
+	);
 
 	const canUndo = players.some((p) => p.points.length > 0);
 
