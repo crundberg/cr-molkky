@@ -77,7 +77,12 @@ function Start() {
 									))}
 								</div>
 							))}
-							<div className="mt-1 w-full flex items-center gap-2">
+							<div className="my-1 flex flex-col items-center gap-0.5 w-full">
+								<div className="w-px h-6 border-l border-dashed border-slate-300" />
+								<p className="text-xs text-slate-400">3.5 m</p>
+								<div className="w-px h-6 border-l border-dashed border-slate-300" />
+							</div>
+							<div className="w-full flex items-center gap-2">
 								<div className="flex-1 border-t border-dashed border-slate-300" />
 								<p className="text-xs text-slate-400 shrink-0">Throwing line</p>
 								<div className="flex-1 border-t border-dashed border-slate-300" />
