@@ -14,7 +14,7 @@ export default function Provider({ children }) {
 
 		const localJson = JSON.parse(localData);
 
-		return process.env.REACT_APP_VERSION === localJson.version
+		return import.meta.env.VITE_APP_VERSION === localJson.version
 			? localJson
 			: initialState;
 	});
