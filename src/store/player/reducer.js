@@ -62,6 +62,34 @@ export default function players(state = initialState, action) {
 					finishedPos: 0,
 				})),
 			};
+		case PLAYER_TYPE.UNDO_POINT: {
+			const maxThrows = Math.max(
+				0,
+				...state.players.map((p) => p.points.length)
+			);
+			if (maxThrows === 0) return state;
+
+			let lastPlayerIndex = -1;
+			for (let i = state.players.length - 1; i >= 0; i -= 1) {
+				if (state.players[i].points.length === maxThrows) {
+					lastPlayerIndex = i;
+					break;
+				}
+			}
+
+			return {
+				...state,
+				players: state.players.map((player, index) => {
+					if (index !== lastPlayerIndex) return player;
+					const newPoints = player.points.slice(0, -1);
+					const newPlayer = { ...player, points: newPoints };
+					newPlayer.currentPoints = calcPlayerScore(newPlayer);
+					newPlayer.disqualified = calcPlayerDisqualified(newPlayer);
+					newPlayer.finishedPos = 0;
+					return newPlayer;
+				}),
+			};
+		}
 		case PLAYER_TYPE.SHUFFLE:
 			return {
 				...state,

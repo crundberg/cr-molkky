@@ -26,6 +26,7 @@ const usePlayers = () => {
 		handleNewGame,
 		handleRematch,
 		handleShuffle,
+		handleUndoPoint,
 	} = actions;
 
 	// Bind Actions
@@ -37,6 +38,7 @@ const usePlayers = () => {
 			handleNewGame,
 			handleRematch,
 			handleShuffle,
+			handleUndoPoint,
 		},
 		dispatch
 	);
@@ -48,6 +50,8 @@ const usePlayers = () => {
 	const playersTurn = getPlayersTurn(players);
 	const playersByScore = getPlayersByScore(players, newRound);
 
+	const canUndo = players.some((p) => p.points.length > 0);
+
 	return {
 		players,
 		playersLeft,
@@ -56,6 +60,7 @@ const usePlayers = () => {
 		currentRound,
 		newRound,
 		roundColumns,
+		canUndo,
 		...playerActions,
 	};
 };

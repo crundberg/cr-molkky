@@ -50,3 +50,9 @@ export function handleShuffle() {
 		type: PLAYER.SHUFFLE,
 	};
 }
+
+export function handleUndoPoint() {
+	return {
+		type: PLAYER.UNDO_POINT,
+	};
+}
