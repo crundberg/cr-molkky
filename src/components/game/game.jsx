@@ -22,50 +22,48 @@ function Game() {
 	};
 
 	return (
-		<div className="min-h-screen flex flex-col items-center pt-6 px-4 pb-8">
-			<div className="w-full max-w-md">
-				<div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-					<div className="px-5 py-4 flex items-center justify-between border-b border-slate-100">
-						<h1 className="text-lg font-bold text-slate-800">CR Mölkky</h1>
-						<div className="flex items-center gap-2">
-							<button
-								type="button"
-								onClick={handleUndoPoint}
-								disabled={!canUndo}
-								className="flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
-								aria-label="Undo last throw"
-								title="Undo last throw"
+		<div className="sm:min-h-screen sm:bg-slate-50 sm:flex sm:items-start sm:justify-center sm:pt-6 sm:px-4 sm:pb-8">
+			<div className="w-full sm:max-w-md bg-white sm:rounded-2xl sm:shadow-sm sm:border sm:border-slate-200 min-h-svh sm:min-h-0 flex flex-col">
+				<div className="px-4 py-3 flex items-center justify-between border-b border-slate-100">
+					<h1 className="text-lg font-bold text-slate-800">CR Mölkky</h1>
+					<div className="flex items-center gap-2">
+						<button
+							type="button"
+							onClick={handleUndoPoint}
+							disabled={!canUndo}
+							className="flex items-center justify-center w-8 h-8 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+							aria-label="Undo last throw"
+							title="Undo last throw"
+						>
+							<svg
+								className="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
 							>
-								<svg
-									className="w-4 h-4"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth={2}
-										d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
-									/>
-								</svg>
-							</button>
-							<Dropdown text="Menu">
-								<Dropdown.Item onClick={handleNewGameClick}>
-									New game
-								</Dropdown.Item>
-								<Dropdown.Item onClick={handleRematchClick}>
-									Restart game
-								</Dropdown.Item>
-								<Dropdown.Divider />
-								<Dropdown.Item href="/settings">Settings</Dropdown.Item>
-							</Dropdown>
-						</div>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth={2}
+									d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+								/>
+							</svg>
+						</button>
+						<Dropdown text="Menu">
+							<Dropdown.Item onClick={handleNewGameClick}>
+								New game
+							</Dropdown.Item>
+							<Dropdown.Item onClick={handleRematchClick}>
+								Restart game
+							</Dropdown.Item>
+							<Dropdown.Divider />
+							<Dropdown.Item href="/settings">Settings</Dropdown.Item>
+						</Dropdown>
 					</div>
-
-					<GameScoreTable />
-					<GamePoints />
 				</div>
+
+				<GameScoreTable />
+				<GamePoints />
 			</div>
 		</div>
 	);
