@@ -13,7 +13,7 @@ function GamePoints() {
 
 	const numBtnClass = (i) => {
 		const base =
-			'aspect-square flex items-center justify-center rounded-xl text-base font-semibold transition-colors';
+			'h-11 flex items-center justify-center rounded-xl text-sm font-semibold transition-colors';
 		const selected = 'bg-indigo-600 text-white shadow-sm';
 		const unselected =
 			'bg-white text-slate-700 border border-slate-200 hover:bg-indigo-50 hover:border-indigo-200';
@@ -29,8 +29,8 @@ function GamePoints() {
 	if (!playersTurn.name) return null;
 
 	return (
-		<div className="p-4 border-t border-slate-100">
-			<p className="text-sm font-semibold text-slate-600 mb-3">
+		<div className="px-4 pt-6 pb-4 border-t border-slate-100">
+			<p className="text-sm font-semibold text-slate-600 mb-4">
 				<span className="text-slate-900">{playersTurn.name}</span>
 				&apos;s turn
 			</p>

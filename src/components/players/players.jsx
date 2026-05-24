@@ -45,7 +45,7 @@ function Players() {
 						<div className="flex gap-2">
 							<input
 								type="text"
-								className="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+								className="flex-1 px-3 py-2 border border-slate-200 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
 								id="player"
 								aria-label="player"
 								placeholder="Player name"
