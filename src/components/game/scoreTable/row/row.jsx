@@ -5,11 +5,12 @@ import classNames from 'classnames';
 
 function GameScoreTableRow({ player }) {
 	const { playersTurn, roundColumns } = usePlayers();
-	const { name, currentPoints, disqualified, handicap, points } = player;
+	const { name, currentPoints, disqualified, handicap, points, finishedPos } =
+		player;
 
 	const isCurrentTurn = name === playersTurn.name;
-	const isWinner = currentPoints === 50 && !disqualified;
-	const finished = isWinner || disqualified;
+	const isWinner = finishedPos === 1;
+	const finished = currentPoints === 50 || disqualified;
 
 	const rowClass = classNames('border-b border-slate-100 last:border-0', {
 		'bg-indigo-50': isCurrentTurn && !isWinner,
@@ -79,6 +80,7 @@ GameScoreTableRow.propTypes = {
 		disqualified: PropTypes.bool,
 		handicap: PropTypes.bool,
 		points: PropTypes.arrayOf(PropTypes.number),
+		finishedPos: PropTypes.number,
 	}).isRequired,
 };
 
