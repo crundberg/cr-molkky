@@ -10,10 +10,14 @@ function GameScoreTableRow({ player }) {
 
 	const isCurrentTurn = name === playersTurn.name;
 	const isWinner = finishedPos === 1;
+	const isFinished = finishedPos > 0;
 	const finished = currentPoints === 50 || disqualified;
 
+	const medals = { 1: '🥇', 2: '🥈', 3: '🥉' };
+	const medalEmoji = medals[finishedPos] ?? null;
+
 	const rowClass = classNames('border-b border-slate-100 last:border-0', {
-		'bg-indigo-50': isCurrentTurn && !isWinner,
+		'bg-indigo-50': isCurrentTurn && !isFinished,
 		'bg-amber-50': isWinner,
 	});
 
@@ -26,10 +30,12 @@ function GameScoreTableRow({ player }) {
 		<tr className={rowClass}>
 			<td className="px-4 py-3">
 				<div className="flex items-center gap-2">
-					{isCurrentTurn && !isWinner && (
+					{isCurrentTurn && !isFinished && (
 						<span className="shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-500" />
 					)}
-					{isWinner && <span className="shrink-0 text-base">🏆</span>}
+					{medalEmoji && (
+						<span className="shrink-0 text-base">{medalEmoji}</span>
+					)}
 					<span className={nameClass}>{name}</span>
 					{handicap && (
 						<span className="text-xs px-1.5 py-0.5 bg-amber-100 text-amber-700 rounded-md font-medium">
@@ -60,10 +66,13 @@ function GameScoreTableRow({ player }) {
 			<td className="px-3 py-3 text-center">
 				<span
 					className={classNames('text-sm font-bold tabular-nums', {
-						'text-indigo-600': isCurrentTurn && !isWinner,
-						'text-amber-600': isWinner,
+						'text-indigo-600': isCurrentTurn && !isFinished,
+						'text-amber-600': finishedPos === 1,
+						'text-slate-500': finishedPos === 2,
+						'text-orange-600': finishedPos === 3,
 						'text-slate-400': disqualified,
-						'text-slate-800': !isCurrentTurn && !isWinner && !disqualified,
+						'text-slate-800':
+							!isCurrentTurn && !isFinished && !disqualified,
 					})}
 				>
 					{currentPoints}
